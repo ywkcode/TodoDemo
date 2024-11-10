@@ -1,27 +1,19 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
-namespace Todo
+namespace Todo.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// MainView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainView : Window
     {
-        public MainWindow()
+        public MainView()
         {
             InitializeComponent();
 
-            btnMin.Click += (s, e) => { this.WindowState = WindowState.Minimized; };
-            btnMax.Click += (s, e) => {
+             btnMin.Click += (s, e) => { this.WindowState = WindowState.Minimized; };
+            btnMax.Click += (s, e) =>
+            {
                 if (this.WindowState == WindowState.Maximized)
                 {
                     this.WindowState = WindowState.Normal;
@@ -33,7 +25,7 @@ namespace Todo
 
             ColorZone.MouseMove += (s, e) =>
             {
-                if (e.LeftButton == MouseButtonState.Pressed)
+                if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
                 {
                     this.DragMove();
                 }
@@ -49,5 +41,6 @@ namespace Todo
                     this.WindowState = WindowState.Maximized;
             };
         }
+ 
     }
 }
