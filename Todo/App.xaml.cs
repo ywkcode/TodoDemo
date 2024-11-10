@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using Todo.ViewModels;
 using Todo.Views;
 
 namespace Todo
@@ -17,7 +18,10 @@ namespace Todo
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            containerRegistry.RegisterForNavigation<IndexView,IndexViewModel>();
+            containerRegistry.RegisterForNavigation<MemoView,MemoViewModel>();
+            containerRegistry.RegisterForNavigation<SettingsView,SettingsViewModel>();
+            containerRegistry.RegisterForNavigation<TodoView,TodoViewModel>();
         }
     }
 

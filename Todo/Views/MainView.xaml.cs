@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Todo.Common.Models;
 
 namespace Todo.Views
 {
@@ -39,6 +40,12 @@ namespace Todo.Views
                 }
                 else
                     this.WindowState = WindowState.Maximized;
+            };
+
+            //收起左侧菜单
+            menuBar.SelectionChanged += (s, e) =>
+            {
+                ColorZone.IsLeftDrawerOpen = false;
             };
         }
  
