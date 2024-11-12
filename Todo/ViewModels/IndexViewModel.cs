@@ -12,6 +12,7 @@ namespace Todo.ViewModels
         {
             Title = "你好，当前是周一下午13:40";
             CreateTaskBars();
+            CreateTodos();
         }
 
 
@@ -29,6 +30,14 @@ namespace Todo.ViewModels
             get { return taskBars; }
             set { taskBars = value; RaisePropertyChanged(); }
         }
+
+        private ObservableCollection<TodoDto> todoDtos;
+
+        public ObservableCollection<TodoDto> TodoDtos
+        {
+            get { return todoDtos; }
+            set { todoDtos = value; RaisePropertyChanged(); }
+        }
         void CreateTaskBars()
         {
 
@@ -37,6 +46,15 @@ namespace Todo.ViewModels
             TaskBars.Add(new TaskBar() { Icon = "ClockCheckOutline", Title = "已完成", Color = "#FF1ECA3A", Target = "ToDoView", Content = "9" });
             TaskBars.Add(new TaskBar() { Icon = "ChartLineVariant", Title = "完成比例", Color = "#FF02C6DC", Target = "", Content = "9" });
             TaskBars.Add(new TaskBar() { Icon = "PlaylistStar", Title = "备忘录", Color = "#FFFFA000", Target = "MemoView", Content = "9" });
+        }
+
+        void CreateTodos()
+        {
+            TodoDtos = new ObservableCollection<TodoDto>();
+            for(int i=0;i<10;i++)
+            {
+                TodoDtos.Add(new TodoDto() { Title="待办"+i,Content="正在处理..."});
+            }
         }
     }
 }

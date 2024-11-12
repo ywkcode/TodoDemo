@@ -41,7 +41,7 @@
                                 CommandParameter="{Binding}"
                                 MouseAction="LeftClick" />
                         </Border.InputBindings>
-
+                        <!--  Border 触发器  -->
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Style.Triggers>
@@ -134,37 +134,24 @@
                 <ListBox
                     x:Name="todoList"
                     HorizontalContentAlignment="Stretch"
-                    ItemsSource="{Binding Summary.ToDoList}"
+                    ItemsSource="{Binding TodoDtos}"
                     ScrollViewer.VerticalScrollBarVisibility="Hidden">
-
-                    <!--<i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding EditToDoCommand}" CommandParameter="{Binding ElementName=todoList, Path=SelectedItem}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
-
-                    <!--<ListBox.ItemTemplate>
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel MaxHeight="80" LastChildFill="False">
-                                <ToggleButton
-                                    Command="{Binding DataContext.ToDoCompltedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}"
-                                    CommandParameter="{Binding}"
-                                    DockPanel.Dock="Right"
-                                    IsChecked="{Binding Status, Converter={StaticResource intToBool}}" />
+                                <ToggleButton DockPanel.Dock="Right" />
                                 <StackPanel>
                                     <TextBlock
                                         FontSize="16"
                                         FontWeight="Bold"
                                         Text="{Binding Title}" />
-                                    <TextBlock
-                                        Margin="0,5"
-                                        Opacity="0.5"
-                                        Text="{Binding Content}" />
+                                    <TextBlock Opacity="0.5" Text="{Binding Content}" />
                                 </StackPanel>
                             </DockPanel>
-
                         </DataTemplate>
-                    </ListBox.ItemTemplate>-->
+                    </ListBox.ItemTemplate>
+
+
                 </ListBox>
             </DockPanel>
 
