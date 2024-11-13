@@ -9,6 +9,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\AboutView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\IndexView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -21,11 +24,17 @@
     <Compile Update="Views\SettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\SkinView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\TodoView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\AboutView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\IndexView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -36,6 +45,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SkinView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\TodoView.xaml">

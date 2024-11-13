@@ -22,6 +22,9 @@ namespace Todo
             containerRegistry.RegisterForNavigation<MemoView,MemoViewModel>();
             containerRegistry.RegisterForNavigation<SettingsView,SettingsViewModel>();
             containerRegistry.RegisterForNavigation<TodoView,TodoViewModel>();
+
+            containerRegistry.RegisterForNavigation<SkinView, SkinViewModel>();
+            containerRegistry.RegisterForNavigation<AboutView, AboutViewModel>();
         }
     }
 

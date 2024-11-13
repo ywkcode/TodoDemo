@@ -8,6 +8,10 @@ namespace Todo.Extensions
 {
     public static class PrismManager
     {
+        /// <summary>
+        /// 首页
+        /// </summary>
         public static readonly string MainViewRegionName = "MainViewRegion";
+        public static readonly string SettingsViewRegionName = "SettingsViewRegion";
     }
 }

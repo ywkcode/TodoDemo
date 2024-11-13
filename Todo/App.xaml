@@ -13,7 +13,7 @@
                     PrimaryColor="DeepPurple"
                     SecondaryColor="Lime" />
 
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="MyListBoxItemStyle" TargetType="ListBoxItem">
                 <Setter Property="MinHeight" Value="40" />
@@ -25,7 +25,7 @@
                                 <Border x:Name="border" />
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                             </Grid>
-                             <!--触发器 类似css伪类-->
+                            <!--  触发器 类似css伪类  -->
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter TargetName="borderHeader" Property="BorderThickness" Value="4,0,0,0" />
