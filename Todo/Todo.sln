@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo", "Todo.csproj", "{9CD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.API", "..\Todo.API\Todo.API.csproj", "{7E434544-9A0E-4E51-BB2C-4DC89B234346}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Shared", "..\Todo.Shared\Todo.Shared.csproj", "{BC9600DB-0C71-41AF-ADBE-27CA9A5E5D9E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{7E434544-9A0E-4E51-BB2C-4DC89B234346}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E434544-9A0E-4E51-BB2C-4DC89B234346}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E434544-9A0E-4E51-BB2C-4DC89B234346}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BC9600DB-0C71-41AF-ADBE-27CA9A5E5D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC9600DB-0C71-41AF-ADBE-27CA9A5E5D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC9600DB-0C71-41AF-ADBE-27CA9A5E5D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC9600DB-0C71-41AF-ADBE-27CA9A5E5D9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
