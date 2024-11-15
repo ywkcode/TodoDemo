@@ -11,21 +11,5 @@ namespace Todo.API.Repository
         Task<bool> Delete(int id);
     }
 
-    public class ToDoRepository : ITodoRepository
-    {
-        public Task<bool> Add(ToDo todo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Update(ToDo todo)
-        {
-            throw new NotImplementedException();
-        }
-    }
+     
 }
