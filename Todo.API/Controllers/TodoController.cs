@@ -22,6 +22,10 @@ namespace Todo.API.Controllers
         [HttpGet]
         public async Task<ApiResponse> GetAll([FromQuery] ToDoParameter param) => await service.GetAllAsnyc(param);
 
+
+        [HttpGet]
+        public async Task<ApiResponse> Get([FromQuery] int id) => await service.GetSingleAsync(id);
+
         [HttpPost]
         public async Task<ApiResponse> Add([FromBody] ToDoDto model) => await service.AddAsync(model);
     }

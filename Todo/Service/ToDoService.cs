@@ -19,9 +19,15 @@ namespace Todo.Service
             this.client = client;
         } 
 
-        public Task<ApiResponse<PagedList<ToDoDto>>> GetAllFilterAsync(ToDoParameter parameter)
+        public async Task<ApiResponse<PagedList<ToDoDto>>> GetAllFilterAsync(ToDoParameter parameter)
         {
-            throw new NotImplementedException();
+            BaseRequest request = new BaseRequest();
+            request.Method = RestSharp.Method.GET;
+            request.Route = $"api/ToDo/GetAll?pageIndex={parameter.PageIndex}" +
+                $"&pageSize={parameter.PageSize}" +
+                $"&search={parameter.Search}" +
+                $"&status={parameter.Status}";
+            return await client.ExecuteAsync<PagedList<ToDoDto>>(request);
         }
     }
 }

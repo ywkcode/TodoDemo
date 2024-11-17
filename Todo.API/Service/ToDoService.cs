@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Data.Common;
 using System.Reflection.Metadata;
 using Todo.Api.UnitOfWork;
 using Todo.API.Context;
@@ -46,12 +47,16 @@ namespace Todo.API.Service
             }
         }
 
-        public async Task<ApiResponse> GetAllAsnyc(QueryParameter query)
+        public async Task<ApiResponse> GetAllAsnyc(QueryParameter parameter)
         {
             try
             {
                 var repository = work.GetRepository<ToDo>();
-                var todos = await repository.GetPagedListAsync( );
+                var todos = await repository.GetPagedListAsync(predicate:
+                x => string.IsNullOrWhiteSpace(parameter.Search) ? true : x.Title.Contains(parameter.Search),
+                pageIndex: parameter.PageIndex,
+                   pageSize: parameter.PageSize,
+                   orderBy: source => source.OrderByDescending(t => t.CreateDate));
                 return new ApiResponse(true, todos);
             }
             catch (Exception ex)
