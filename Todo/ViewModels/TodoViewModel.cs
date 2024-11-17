@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DryIoc;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,13 +12,13 @@ using Todo.Shared.Parameters;
 
 namespace Todo.ViewModels
 {
-    public class TodoViewModel: BindableBase
+    public class TodoViewModel: NavigationViewModel
     {
         private readonly IToDoService toDoService;
-        public TodoViewModel(IToDoService toDoServiceArg)
+        public TodoViewModel(IToDoService toDoServiceArg,IContainerProvider provider):base(provider)
         {
             toDoService = toDoServiceArg;
-            CreateTodos();
+            //CreateTodos();
             AddCommand = new DelegateCommand(Add);
         }
         private bool isRightDrawerOpen;
@@ -41,8 +42,12 @@ namespace Todo.ViewModels
             set { todoDtos = value; RaisePropertyChanged(); }
         }
 
-        async void CreateTodos()
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        async void GetDataListsAsync()
         {
+            UpdateLoading(true);
             TodoDtos = new ObservableCollection<ToDoDto>();
              var results = await toDoService.GetAllAsync(new QueryParameter()
             {
@@ -56,9 +61,16 @@ namespace Todo.ViewModels
                 {
                     TodoDtos.Add(item);
                 }
-            } 
+            }
+            UpdateLoading(false);
         }
 
         public  DelegateCommand AddCommand { get; set; }
+
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            base.OnNavigatedTo(navigationContext);
+            GetDataListsAsync();
+        }
     }
 }

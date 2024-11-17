@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Todo.Common.Models;
+using Todo.Extensions;
 
 namespace Todo.Views
 {
@@ -8,10 +9,19 @@ namespace Todo.Views
     /// </summary>
     public partial class MainView : Window
     {
-        public MainView()
+        public MainView(IEventAggregator aggregator)
         {
             InitializeComponent();
 
+            //订阅 等待消息发送
+            aggregator.Register(arg =>
+            {
+                DialogHost.IsOpen = arg.IsOpen;
+                if (DialogHost.IsOpen)
+                {
+                    DialogHost.DialogContent = new ProgressView();
+                }
+            });
              btnMin.Click += (s, e) => { this.WindowState = WindowState.Minimized; };
             btnMax.Click += (s, e) =>
             {
