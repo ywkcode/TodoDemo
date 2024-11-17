@@ -5,19 +5,19 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Todo.Common;
 using Todo.Common.Models;
 using Todo.Extensions;
 
 namespace Todo.ViewModels
 {
-    public class MainViewModel:BindableBase
+    public class MainViewModel:BindableBase,IConfigureService
     {
         protected IRegionManager regionManager;
         private   IRegionNavigationJournal journal;
         public MainViewModel(IRegionManager regionManagerArg)
         {
-            MenuBars=new ObservableCollection<MenuBar>();
-            CreateMenuBar();
+            MenuBars=new ObservableCollection<MenuBar>(); 
             NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
             regionManager=regionManagerArg;
 
@@ -74,6 +74,15 @@ namespace Todo.ViewModels
             MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "待办事项", NameSpace = "TodoView" });
             MenuBars.Add(new MenuBar() { Icon = "NotebookPlus", Title = "备忘录", NameSpace = "MemoView" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "设置", NameSpace = "SettingsView" });
+        }
+
+        /// <summary>
+        /// 首页初始化参数
+        /// </summary>
+        public void Confiure()
+        {
+            CreateMenuBar();
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
         }
     }
 }

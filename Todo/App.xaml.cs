@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using Todo.Common;
 using Todo.Service;
 using Todo.ViewModels;
 using Todo.Views;
@@ -15,6 +16,19 @@ namespace Todo
         protected override Window CreateShell()
         {
             return Container.Resolve<MainView>();
+        }
+
+        /// <summary>
+        /// 重写初始化
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            var service=App.Current.MainWindow.DataContext as IConfigureService;
+            if (service != null)
+            {
+                service.Confiure();
+            }
+            base.OnInitialized();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
