@@ -5,7 +5,7 @@ using Todo.Shared.Dtos;
 
 namespace Todo.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class LoginController : ControllerBase
     {

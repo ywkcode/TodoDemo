@@ -5,15 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Todo.Common.Models;
+using Todo.Service;
+using Todo.Shared.Dtos;
+using Todo.Shared.Parameters;
 
 namespace Todo.ViewModels
 {
     public class TodoViewModel: BindableBase
     {
-
-        public TodoViewModel()
+        private readonly IToDoService toDoService;
+        public TodoViewModel(IToDoService toDoServiceArg)
         {
-           
+            toDoService = toDoServiceArg;
             CreateTodos();
             AddCommand = new DelegateCommand(Add);
         }
@@ -30,21 +33,30 @@ namespace Todo.ViewModels
             IsRightDrawerOpen=!IsRightDrawerOpen;
         }
 
-        private ObservableCollection<TodoDto> todoDtos;
+        private ObservableCollection<ToDoDto> todoDtos;
 
-        public ObservableCollection<TodoDto> TodoDtos
+        public ObservableCollection<ToDoDto> TodoDtos
         {
             get { return todoDtos; }
             set { todoDtos = value; RaisePropertyChanged(); }
         }
 
-        void CreateTodos()
+        async void CreateTodos()
         {
-            TodoDtos = new ObservableCollection<TodoDto>();
-            for (int i = 0; i < 10; i++)
+            TodoDtos = new ObservableCollection<ToDoDto>();
+             var results = await toDoService.GetAllAsync(new QueryParameter()
             {
-                TodoDtos.Add(new TodoDto() { Title = "待办" + i, Content = "正在处理..." });
-            }
+                PageIndex = 0,
+                PageSize = 100, 
+            });
+            if (results.Status) //查询成功
+            {
+                TodoDtos.Clear();
+                foreach (var item in results.Result.Items)
+                {
+                    TodoDtos.Add(item);
+                }
+            } 
         }
 
         public  DelegateCommand AddCommand { get; set; }
