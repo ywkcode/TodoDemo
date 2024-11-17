@@ -22,6 +22,8 @@ builder.Services.AddUnitOfWork<TodoContext>()
      .AddCustomRepository<User, UserRepository>();
 
 builder.Services.AddTransient<IToDoService, ToDoService>();
+builder.Services.AddTransient<ILoginService, LoginService>();
+
 #region Ìí¼ÓAutoMapper
 var automapperConfog = new MapperConfiguration(config =>
 {

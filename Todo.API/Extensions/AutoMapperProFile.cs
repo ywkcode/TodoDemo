@@ -9,6 +9,7 @@ namespace Todo.API.Extensions
         public AutoMapperProFile()
         {
             CreateMap<ToDo, ToDoDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
         }
     }
 }
