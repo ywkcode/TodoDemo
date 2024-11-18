@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Todo.Common.Dialogs;
 using Todo.Common.Models;
 using Todo.Extensions;
 
@@ -9,10 +10,11 @@ namespace Todo.Views
     /// </summary>
     public partial class MainView : Window
     {
-        public MainView(IEventAggregator aggregator)
+       
+        public MainView(IEventAggregator aggregator,  IDialogHostService dialogHostService)
         {
             InitializeComponent();
-
+        
             //订阅 等待消息发送
             aggregator.Register(arg =>
             {
@@ -32,7 +34,13 @@ namespace Todo.Views
                 else
                     this.WindowState = WindowState.Maximized;
             };
-            btnClose.Click += (s, e) => { this.Close(); };
+            //退出系统提示
+            btnClose.Click += async (s, e) => 
+            {
+                var dialogResult = await dialogHostService.Question("温馨提示", "确认退出系统？");
+                if (dialogResult.Result !=  ButtonResult.OK) return;
+                this.Close();
+            };
 
             ColorZone.MouseMove += (s, e) =>
             {

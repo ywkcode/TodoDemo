@@ -7,7 +7,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Todo.Common.Dialogs;
 using Todo.Common.Models;
+using Todo.Extensions;
 using Todo.Service;
 using Todo.Shared.Dtos;
 using Todo.Shared.Parameters;
@@ -17,6 +19,7 @@ namespace Todo.ViewModels
     public class TodoViewModel: NavigationViewModel
     {
         private readonly IToDoService toDoService;
+        private readonly IDialogHostService dialogHost;
         public TodoViewModel(IToDoService toDoServiceArg,IContainerProvider provider):base(provider)
         {
             toDoService = toDoServiceArg;
@@ -24,12 +27,16 @@ namespace Todo.ViewModels
             ExecuteCommand = new DelegateCommand<string>(Execute);
             SelectedCommand = new DelegateCommand<ToDoDto>(Seleted);
             DeleteCommand = new DelegateCommand<ToDoDto>(Delete);
+            dialogHost = provider.Resolve<IDialogHostService>(); //从容器中获取
         }
 
         private async void Delete(ToDoDto dto)
         {
             try
             {
+                var dialogResult=await dialogHost.Question("温馨提示", $"确认删除待办事项:{dto.Title}?");
+                if (dialogResult.Result != Prism.Dialogs.ButtonResult.OK) return;
+                
                 UpdateLoading(true);
                 var deleteResult = await toDoService.DeleteAsync(dto.Id);
                 if (deleteResult.Status)

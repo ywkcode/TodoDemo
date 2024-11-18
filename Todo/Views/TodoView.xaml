@@ -135,7 +135,10 @@
                                         </Grid.RowDefinitions>
                                         <!--  弹框  -->
                                         <md:PopupBox HorizontalAlignment="Right" Panel.ZIndex="1">
-                                            <Button Command="{Binding DeleteCommand}" Content="删除" />
+                                            <Button
+                                                Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}"
+                                                Content="删除" />
                                         </md:PopupBox>
                                         <Border Grid.RowSpan="2" CornerRadius="3">
                                             <Border.Style>

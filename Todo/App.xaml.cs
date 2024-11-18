@@ -45,7 +45,7 @@ namespace Todo
 
             //注册弹窗
             containerRegistry.RegisterForNavigation<AddToDoView, AddToDoViewModel>();
-
+            containerRegistry.RegisterForNavigation<MsgView, MsgViewModel>();
             containerRegistry.RegisterForNavigation<IndexView,IndexViewModel>();
             containerRegistry.RegisterForNavigation<MemoView,MemoViewModel>();
             containerRegistry.RegisterForNavigation<SettingsView,SettingsViewModel>();
