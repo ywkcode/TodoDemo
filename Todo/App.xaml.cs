@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using Todo.Common;
+using Todo.Common.Dialogs;
 using Todo.Service;
 using Todo.ViewModels;
 using Todo.ViewModels.Dialogs;
@@ -38,10 +39,12 @@ namespace Todo
             containerRegistry.GetContainer()
               .Register<HttpRestClient>(made: Parameters.Of.Type<string>(serviceKey: "webUrl"));
             containerRegistry.GetContainer().RegisterInstance(@"http://localhost:3389/", serviceKey: "webUrl");
+
             containerRegistry.Register<IToDoService, ToDoService>();
+            containerRegistry.Register<IDialogHostService, DialogHostService>();
 
             //注册弹窗
-            containerRegistry.RegisterDialog<AddToDoView, AddToDoViewModel>();
+            containerRegistry.RegisterForNavigation<AddToDoView, AddToDoViewModel>();
 
             containerRegistry.RegisterForNavigation<IndexView,IndexViewModel>();
             containerRegistry.RegisterForNavigation<MemoView,MemoViewModel>();

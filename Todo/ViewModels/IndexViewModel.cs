@@ -1,16 +1,19 @@
 ﻿using System.Collections.ObjectModel;
+using Todo.Common.Dialogs;
 using Todo.Common.Models;
 
 namespace Todo.ViewModels
 {
     public class IndexViewModel : BindableBase
     {
-        private readonly IDialogService dialogService;
+        //private readonly IDialogService dialogService;
+        //自定义的弹窗
+        private readonly IDialogHostService dialogService;
         public DelegateCommand<string> ExecuteCommand { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public IndexViewModel(IDialogService dialogService)
+        public IndexViewModel(IDialogHostService dialogService)
         {
             Title = "你好，当前是周一下午13:40";
             CreateTaskBars();
@@ -29,7 +32,7 @@ namespace Todo.ViewModels
         }
         void AddToDo()
         {
-            dialogService.ShowDialog("AddToDoView");
+            dialogService.ShowDialog("AddToDoView",null);
         }
         #region 属性
         private string title;
