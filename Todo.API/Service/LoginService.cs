@@ -4,6 +4,7 @@ using System.Security.Principal;
 using Todo.Api.UnitOfWork;
 using Todo.API.Context;
 using Todo.Shared.Dtos;
+using Todo.Shared.Extensions;
 
 namespace Todo.API.Service
 {
@@ -19,6 +20,7 @@ namespace Todo.API.Service
         }
         public async Task<ApiResponse> LoginAsync(string Account, string Password)
         {
+            Password = Password.GetMD5();
             var user = work.GetRepository<User>().GetFirstOrDefaultAsync(predicate: s => s.PassWord == Password && s.Account == Account);
             if (user is null)
             {
@@ -39,6 +41,7 @@ namespace Todo.API.Service
             }
 
             model.CreateDate = DateTime.Now;
+            model.PassWord = model.PassWord.GetMD5();
             await respository.InsertAsync(model);
             if (await work.SaveChangesAsync() > 0)
             {

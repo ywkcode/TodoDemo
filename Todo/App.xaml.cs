@@ -51,7 +51,7 @@ namespace Todo
 
             containerRegistry.Register<IToDoService, ToDoService>();
             containerRegistry.Register<IDialogHostService, DialogHostService>();
-
+            containerRegistry.Register<ILoginService, LoginService>();
             //注册弹窗
             containerRegistry.RegisterForNavigation<AddToDoView, AddToDoViewModel>();
             containerRegistry.RegisterForNavigation<MsgView, MsgViewModel>();

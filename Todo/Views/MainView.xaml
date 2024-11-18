@@ -131,7 +131,7 @@
                                 VerticalAlignment="Center"
                                 AutomationProperties.Name="Material Design In XAML Toolkit"
                                 FontSize="22"
-                                Text="值班表" />
+                                Text="排班系统" />
                         </StackPanel>
 
                     </DockPanel>
