@@ -26,6 +26,15 @@ namespace Todo
         /// </summary>
         protected override void OnInitialized()
         {
+            var dialog = Container.Resolve<IDialogService>();
+            dialog.ShowDialog("LoginView", callback =>
+            {
+                if (callback.Result == ButtonResult.OK)
+                {
+                    Environment.Exit(0);
+                    return;
+                }
+            });
             var service=App.Current.MainWindow.DataContext as IConfigureService;
             if (service != null)
             {
@@ -46,6 +55,8 @@ namespace Todo
             //注册弹窗
             containerRegistry.RegisterForNavigation<AddToDoView, AddToDoViewModel>();
             containerRegistry.RegisterForNavigation<MsgView, MsgViewModel>();
+            containerRegistry.RegisterDialog<LoginView, LoginViewModel>();
+
             containerRegistry.RegisterForNavigation<IndexView,IndexViewModel>();
             containerRegistry.RegisterForNavigation<MemoView,MemoViewModel>();
             containerRegistry.RegisterForNavigation<SettingsView,SettingsViewModel>();

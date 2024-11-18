@@ -51,14 +51,18 @@ namespace Todo.ViewModels.Dialogs
         private void Save()
         {
             if (string.IsNullOrWhiteSpace(Model.Title) ||
-                string.IsNullOrWhiteSpace(model.Content)) return;
+                string.IsNullOrWhiteSpace(Model.Content)) return;
 
             if (DialogHost.IsDialogOpen(DialogHostName))
             {
                 //确定时,把编辑的实体返回并且返回OK
                 DialogParameters param = new DialogParameters();
                 param.Add("Value", Model);
-                DialogHost.Close(DialogHostName, new DialogResult(ButtonResult.OK));
+                var dialog = new DialogResult() {
+                   Parameters=param,
+                   Result=ButtonResult.OK
+                }; 
+                DialogHost.Close(DialogHostName, dialog);
             }
         }
 
