@@ -4,7 +4,9 @@ using System.Windows;
 using Todo.Common;
 using Todo.Service;
 using Todo.ViewModels;
+using Todo.ViewModels.Dialogs;
 using Todo.Views;
+using Todo.Views.Dialogs;
 
 namespace Todo
 {
@@ -38,6 +40,8 @@ namespace Todo
             containerRegistry.GetContainer().RegisterInstance(@"http://localhost:3389/", serviceKey: "webUrl");
             containerRegistry.Register<IToDoService, ToDoService>();
 
+            //注册弹窗
+            containerRegistry.RegisterDialog<AddToDoView, AddToDoViewModel>();
 
             containerRegistry.RegisterForNavigation<IndexView,IndexViewModel>();
             containerRegistry.RegisterForNavigation<MemoView,MemoViewModel>();
