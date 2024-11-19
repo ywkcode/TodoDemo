@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Todo.Common.Session;
 using Todo.Extensions;
 using Todo.Service;
 using Todo.Shared.Dtos;
@@ -50,6 +51,7 @@ namespace Todo.ViewModels.Dialogs
 
             if (loginResult != null && loginResult.Status)
             {
+                AppSession.UserName = loginResult.Result?.UserName??"";
                 RequestClose.Invoke(new DialogResult(ButtonResult.OK));
             }
             else

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Todo.Common.Dialogs;
 using Todo.Common.Models;
+using Todo.Common.Session;
 
 namespace Todo.ViewModels
 {
@@ -15,7 +16,7 @@ namespace Todo.ViewModels
         /// </summary>
         public IndexViewModel(IDialogHostService dialogService)
         {
-            Title = "你好，当前是周一下午13:40";
+            Title = $"你好，{AppSession.UserName} {DateTime.Now.GetDateTimeFormats('D')[1].ToString()}";
             CreateTaskBars();
             CreateTodos();
             ExecuteCommand = new DelegateCommand<string>(Execute);

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Todo.Common;
 using Todo.Common.Models;
+using Todo.Common.Session;
 using Todo.Extensions;
 
 namespace Todo.ViewModels
@@ -15,9 +16,21 @@ namespace Todo.ViewModels
     {
         protected IRegionManager regionManager;
         private   IRegionNavigationJournal journal;
+
+        #region 属性
+        private string userNamer;
+
+        public string UserName
+        {
+            get { return userNamer; }
+            set { userNamer = value; }
+        }
+
+        #endregion
         public MainViewModel(IRegionManager regionManagerArg)
         {
-            MenuBars=new ObservableCollection<MenuBar>(); 
+            UserName = AppSession.UserName;
+            MenuBars =new ObservableCollection<MenuBar>(); 
             NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
             regionManager=regionManagerArg;
 

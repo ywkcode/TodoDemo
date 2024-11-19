@@ -10,7 +10,7 @@ namespace Todo.Service
 {
     public interface ILoginService
     {
-        Task<ApiResponse> LoginAsync(UserDto user);
+        Task<ApiResponse<UserDto>> LoginAsync(UserDto user);
 
         Task<ApiResponse> Register(UserDto user);
     }

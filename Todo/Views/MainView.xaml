@@ -85,6 +85,10 @@
                                         RadiusY="12.5" />
                                 </Image.Clip>
                             </Image>
+                            <TextBlock
+                                Margin="0,10"
+                                HorizontalAlignment="Center"
+                                Text="{Binding UserName}" />
                             <Button
                                 x:Name="btnMin"
                                 Content="—"
