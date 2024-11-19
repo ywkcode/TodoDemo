@@ -31,7 +31,12 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Image Margin="50" Source="/Images/login.png" />
-
+        <!--提示信息-->
+        <md:Snackbar
+            x:Name="LoginSnackerBar"
+            Grid.ColumnSpan="2"
+            Panel.ZIndex="1"
+            MessageQueue="{md:MessageQueue}" />
         <md:Transitioner Grid.Column="1" SelectedIndex="{Binding SelectIndex}">
             <!--  账号登陆  -->
             <md:TransitionerSlide>

@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Todo.Extensions;
 using Todo.Service;
 using Todo.Shared.Dtos;
 
@@ -12,9 +14,11 @@ namespace Todo.ViewModels.Dialogs
     public class LoginViewModel : BindableBase, IDialogAware
     {
         private readonly ILoginService  loginService;
-        public LoginViewModel(ILoginService loginServiceArg)
+        private readonly IEventAggregator eventAggregator;
+        public LoginViewModel(ILoginService loginServiceArg, IEventAggregator eventAggregatorArg)
         {
             ExecuteCommand = new DelegateCommand<string>(Execute);
+            eventAggregator = eventAggregatorArg;
             loginService = loginServiceArg;
             UserDto = new ResgiterUserDto();
         }
@@ -51,7 +55,7 @@ namespace Todo.ViewModels.Dialogs
             else
             {
                 //登录失败提示...
-               // aggregator.SendMessage(loginResult.Message, "Login");
+                eventAggregator.SendMessage(loginResult?.Message??"", "Login");
             }
         }
 
@@ -62,13 +66,13 @@ namespace Todo.ViewModels.Dialogs
                    string.IsNullOrWhiteSpace(UserDto.PassWord) ||
                    string.IsNullOrWhiteSpace(UserDto.NewPassWord))
             {
-                //aggregator.SendMessage("请输入完整的注册信息！", "Login");
+                eventAggregator.SendMessage("请输入完整的注册信息！", "Login");
                 return;
             }
 
             if (UserDto.PassWord != UserDto.NewPassWord)
             {
-                //aggregator.SendMessage("密码不一致,请重新输入！", "Login");
+                eventAggregator.SendMessage("密码不一致,请重新输入！", "Login");
                 return;
             }
 
@@ -81,15 +85,15 @@ namespace Todo.ViewModels.Dialogs
 
             if (resgiterResult != null && resgiterResult.Status)
             {
-                //aggregator.SendMessage("注册成功", "Login");
+                eventAggregator.SendMessage("注册成功", "Login");
                 //注册成功,返回登录页页面
                 SelectIndex = 0;
             }
             else
-            { 
-            
+            {
+                eventAggregator.SendMessage(resgiterResult?.Message??"", "Login");
             }
-                //aggregator.SendMessage(resgiterResult.Message, "Login");
+            
         }
         void LoginOut() 
         {

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Todo.Extensions;
 
 namespace Todo.Views
 {
@@ -20,9 +21,14 @@ namespace Todo.Views
     /// </summary>
     public partial class LoginView : UserControl
     {
-        public LoginView()
+        public LoginView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
+            //注册提示消息的订阅 封装了subscribe
+            eventAggregator.ResgiterMessage(arg =>
+            {
+                LoginSnackerBar.MessageQueue.Enqueue(arg.Message);
+            },"Login");
         }
     }
 }

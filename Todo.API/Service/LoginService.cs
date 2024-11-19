@@ -21,7 +21,7 @@ namespace Todo.API.Service
         public async Task<ApiResponse> LoginAsync(string Account, string Password)
         {
             Password = Password.GetMD5();
-            var user = work.GetRepository<User>().GetFirstOrDefaultAsync(predicate: s => s.PassWord == Password && s.Account == Account);
+            var user =await work.GetRepository<User>().GetFirstOrDefaultAsync(predicate: s => s.PassWord == Password && s.Account == Account);
             if (user is null)
             {
                 return new ApiResponse("账号或密码错误，请重试！");
