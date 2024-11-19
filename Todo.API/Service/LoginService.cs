@@ -32,16 +32,15 @@ namespace Todo.API.Service
         public async Task<ApiResponse> Register(UserDto user)
         {
             var model = mapper.Map<User>(user);
-           
+            model.PassWord = model.PassWord.GetMD5();
             var respository = work.GetRepository<User>();
             var userMol =await work.GetRepository<User>().GetFirstOrDefaultAsync(predicate: s => s.PassWord == model.PassWord && s.Account == model.Account);
-            if (userMol is null)
+            if (userMol != null)
             {
                 return new ApiResponse($"当前账号:{user.Account}已存在，请重新注册！");
             }
 
-            model.CreateDate = DateTime.Now;
-            model.PassWord = model.PassWord.GetMD5();
+            model.CreateDate = DateTime.Now; 
             await respository.InsertAsync(model);
             if (await work.SaveChangesAsync() > 0)
             {

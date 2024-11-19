@@ -29,7 +29,7 @@ namespace Todo
             var dialog = Container.Resolve<IDialogService>();
             dialog.ShowDialog("LoginView", callback =>
             {
-                if (callback.Result == ButtonResult.OK)
+                if (callback.Result != ButtonResult.OK)
                 {
                     Environment.Exit(0);
                     return;

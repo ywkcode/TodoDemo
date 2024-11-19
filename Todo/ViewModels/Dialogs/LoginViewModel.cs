@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Todo.Service;
+using Todo.Shared.Dtos;
 
 namespace Todo.ViewModels.Dialogs
 {
@@ -14,6 +16,7 @@ namespace Todo.ViewModels.Dialogs
         {
             ExecuteCommand = new DelegateCommand<string>(Execute);
             loginService = loginServiceArg;
+            UserDto = new ResgiterUserDto();
         }
 
         private void Execute(string obj)
@@ -22,6 +25,9 @@ namespace Todo.ViewModels.Dialogs
             {
                 case "Login":Login();break;
                 case "LoginOut": LoginOut();break;
+                case "ResgiterPage": SelectIndex = 1;break;
+                case "Register": Register(); break;
+                case "Return": SelectIndex=0; break;
             }
         }
         async void Login() 
@@ -32,7 +38,7 @@ namespace Todo.ViewModels.Dialogs
                 return;
             }
 
-            var loginResult = await loginService.LoginAsync(new Shared.Dtos.UserDto()
+            var loginResult = await loginService.LoginAsync(new UserDto()
             {
                 Account = Account,
                 PassWord = PassWord
@@ -47,6 +53,43 @@ namespace Todo.ViewModels.Dialogs
                 //登录失败提示...
                // aggregator.SendMessage(loginResult.Message, "Login");
             }
+        }
+
+        private async void Register()
+        {
+            if (string.IsNullOrWhiteSpace(UserDto.Account) ||
+                   string.IsNullOrWhiteSpace(UserDto.UserName) ||
+                   string.IsNullOrWhiteSpace(UserDto.PassWord) ||
+                   string.IsNullOrWhiteSpace(UserDto.NewPassWord))
+            {
+                //aggregator.SendMessage("请输入完整的注册信息！", "Login");
+                return;
+            }
+
+            if (UserDto.PassWord != UserDto.NewPassWord)
+            {
+                //aggregator.SendMessage("密码不一致,请重新输入！", "Login");
+                return;
+            }
+
+            var resgiterResult = await loginService.Register(new  UserDto()
+            {
+                Account = UserDto.Account,
+                UserName = UserDto.UserName,
+                PassWord = UserDto.PassWord
+            });
+
+            if (resgiterResult != null && resgiterResult.Status)
+            {
+                //aggregator.SendMessage("注册成功", "Login");
+                //注册成功,返回登录页页面
+                SelectIndex = 0;
+            }
+            else
+            { 
+            
+            }
+                //aggregator.SendMessage(resgiterResult.Message, "Login");
         }
         void LoginOut() 
         {
@@ -68,7 +111,20 @@ namespace Todo.ViewModels.Dialogs
             get { return passWord; }
             set { passWord = value; RaisePropertyChanged(); }
         }
+        private int selectIndex;
 
+        public int SelectIndex
+        {
+            get { return selectIndex; }
+            set { selectIndex = value; RaisePropertyChanged(); }
+        }
+        private ResgiterUserDto userDto;
+
+        public ResgiterUserDto UserDto
+        {
+            get { return userDto; }
+            set { userDto = value; RaisePropertyChanged(); }
+        }
         #endregion
 
         public DelegateCommand<string> ExecuteCommand { get; set; }

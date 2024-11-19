@@ -10,7 +10,7 @@ namespace Todo.Shared.Dtos
     {
 		private string userName;
 
-		public string UserName
+		public string? UserName
 		{
 			get { return userName; }
 			set { userName = value; OnPropertyChanged(); }
