@@ -16,6 +16,7 @@ namespace Todo.ViewModels
     {
         protected IRegionManager regionManager;
         private   IRegionNavigationJournal journal;
+       
 
         #region 属性
         private string userNamer;
@@ -47,6 +48,7 @@ namespace Todo.ViewModels
                     journal.GoForward();
                 }
             });
+          
         }
 
         //导航

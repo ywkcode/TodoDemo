@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Threading;
 using Todo.Common.Dialogs;
 using Todo.Common.Models;
 using Todo.Common.Session;
@@ -8,6 +9,8 @@ namespace Todo.ViewModels
     public class IndexViewModel : BindableBase
     {
         //private readonly IDialogService dialogService;
+
+        private DispatcherTimer _timer;
         //自定义的弹窗
         private readonly IDialogHostService dialogService;
         public DelegateCommand<string> ExecuteCommand { get; set; }
@@ -16,13 +19,33 @@ namespace Todo.ViewModels
         /// </summary>
         public IndexViewModel(IDialogHostService dialogService)
         {
-            Title = $"你好，{AppSession.UserName} {DateTime.Now.GetDateTimeFormats('D')[1].ToString()}";
+            Title = $"你好，{AppSession.UserName}";
             CreateTaskBars();
             CreateTodos();
             ExecuteCommand = new DelegateCommand<string>(Execute);
             this.dialogService = dialogService;
+            InitTime();
+
+
+        }
+        private void InitTime()
+        {
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);//更新频率设为每秒
+            _timer.Tick +=Time_Tick;
+            _timer.Start();
+            updateTime();
         }
 
+        private void Time_Tick(object? sender, EventArgs e)
+        {
+            updateTime();
+        }
+
+        private void updateTime()
+        {
+            CurrentTime = DateTime.Now.ToString("HH:mm:ss");
+        }
         private void Execute(string obj)
         {
             switch (obj)
@@ -59,9 +82,20 @@ namespace Todo.ViewModels
             get { return todoDtos; }
             set { todoDtos = value; RaisePropertyChanged(); }
         }
+
+        private string _currentTime;
+        public string CurrentTime
+        {
+            get { return _currentTime; }
+            set
+            {
+                _currentTime = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
-      
+
         void CreateTaskBars()
         {
 

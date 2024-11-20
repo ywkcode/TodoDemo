@@ -18,10 +18,17 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock
-            Margin="15,10"
-            FontSize="22"
-            Text="{Binding Title}" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock
+                Margin="15,10"
+                FontSize="22"
+                Text="{Binding Title}" />
+            <TextBlock
+                Margin="15,10"
+                FontSize="22"
+                Text="{Binding CurrentTime}" />
+        </StackPanel>
+
         <ItemsControl Grid.Row="1" ItemsSource="{Binding TaskBars}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

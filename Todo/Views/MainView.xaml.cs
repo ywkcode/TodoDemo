@@ -2,6 +2,7 @@
 using Todo.Common.Dialogs;
 using Todo.Common.Models;
 using Todo.Extensions;
+using Todo.ViewModels;
 
 namespace Todo.Views
 {
@@ -10,11 +11,11 @@ namespace Todo.Views
     /// </summary>
     public partial class MainView : Window
     {
-       
+      
         public MainView(IEventAggregator aggregator,  IDialogHostService dialogHostService)
         {
             InitializeComponent();
-        
+           
             //订阅 等待消息发送
             aggregator.Register(arg =>
             {
@@ -65,7 +66,9 @@ namespace Todo.Views
             {
                 ColorZone.IsLeftDrawerOpen = false;
             };
+           
+
         }
- 
+
     }
 }

@@ -18,7 +18,7 @@ namespace Todo.Service
         {
 
             var data = this.Query<User>(s => s.Account == user.Account).ToList().FirstOrDefault();
-            return data ?? new User();
+            return data ;
         }
 
         public bool Register(UserDto user)

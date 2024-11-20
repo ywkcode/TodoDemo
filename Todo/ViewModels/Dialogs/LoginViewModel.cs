@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using Todo.Common.Session;
 using Todo.Extensions;
 using Todo.IService;
@@ -17,6 +18,7 @@ namespace Todo.ViewModels.Dialogs
     {
         private readonly ITodoLoginService  loginService;
         private readonly IEventAggregator eventAggregator;
+     
         public LoginViewModel(ITodoLoginService loginServiceArg, IEventAggregator eventAggregatorArg)
         {
             ExecuteCommand = new DelegateCommand<string>(Execute);
@@ -24,7 +26,7 @@ namespace Todo.ViewModels.Dialogs
             loginService = loginServiceArg;
             UserDto = new ResgiterUserDto();
         }
-
+     
         private void Execute(string obj)
         {
             switch (obj)
@@ -58,7 +60,7 @@ namespace Todo.ViewModels.Dialogs
             else
             {
                 //登录失败提示...
-                eventAggregator.SendMessage( "", "Login");
+                eventAggregator.SendMessage( "登陆失败！", "Login");
             }
         }
 

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Todo.ViewModels;
 
 namespace Todo.Views
 {
@@ -20,9 +21,11 @@ namespace Todo.Views
     /// </summary>
     public partial class IndexView : UserControl
     {
+      
         public IndexView()
         {
             InitializeComponent();
+        
         }
     }
 }

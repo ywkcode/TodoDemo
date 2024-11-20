@@ -34,4 +34,10 @@
     <Resource Include="Images\wind.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="to.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
