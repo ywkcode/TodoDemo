@@ -7,3 +7,13 @@
 /Todo/Properties
 /Todo.Shared/bin
 /Todo.Shared/obj
+/Todo.Base/obj
+/Todo.Base/bin
+/Todo.Entity/obj
+/Todo.Entity/bin
+/Todo.IService/obj
+/Todo.IService/bin
+/Todo.Models/obj
+/Todo.Models/bin
+/Todo.Service/obj
+/Todo.Service/bin

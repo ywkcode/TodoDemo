@@ -7,16 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Todo.Common.Session;
 using Todo.Extensions;
-using Todo.Service;
-using Todo.Shared.Dtos;
+using Todo.IService;
+using Todo.Models;
+using Todo.Service; 
 
 namespace Todo.ViewModels.Dialogs
 {
     public class LoginViewModel : BindableBase, IDialogAware
     {
-        private readonly ILoginService  loginService;
+        private readonly ITodoLoginService  loginService;
         private readonly IEventAggregator eventAggregator;
-        public LoginViewModel(ILoginService loginServiceArg, IEventAggregator eventAggregatorArg)
+        public LoginViewModel(ITodoLoginService loginServiceArg, IEventAggregator eventAggregatorArg)
         {
             ExecuteCommand = new DelegateCommand<string>(Execute);
             eventAggregator = eventAggregatorArg;
@@ -35,7 +36,7 @@ namespace Todo.ViewModels.Dialogs
                 case "Return": SelectIndex=0; break;
             }
         }
-        async void Login() 
+          void Login() 
         {
             if (string.IsNullOrWhiteSpace(Account) ||
                 string.IsNullOrWhiteSpace(PassWord))
@@ -43,25 +44,25 @@ namespace Todo.ViewModels.Dialogs
                 return;
             }
 
-            var loginResult = await loginService.LoginAsync(new UserDto()
+            var loginResult =   loginService.LoginAsync(new UserDto()
             {
                 Account = Account,
                 PassWord = PassWord
             });
 
-            if (loginResult != null && loginResult.Status)
+            if (loginResult != null )
             {
-                AppSession.UserName = loginResult.Result?.UserName??"";
+                AppSession.UserName = loginResult. UserName??"";
                 RequestClose.Invoke(new DialogResult(ButtonResult.OK));
             }
             else
             {
                 //登录失败提示...
-                eventAggregator.SendMessage(loginResult?.Message??"", "Login");
+                eventAggregator.SendMessage( "", "Login");
             }
         }
 
-        private async void Register()
+        private   void Register()
         {
             if (string.IsNullOrWhiteSpace(UserDto.Account) ||
                    string.IsNullOrWhiteSpace(UserDto.UserName) ||
@@ -78,14 +79,14 @@ namespace Todo.ViewModels.Dialogs
                 return;
             }
 
-            var resgiterResult = await loginService.Register(new  UserDto()
+            var resgiterResult =   loginService.Register(new  UserDto()
             {
                 Account = UserDto.Account,
                 UserName = UserDto.UserName,
                 PassWord = UserDto.PassWord
             });
 
-            if (resgiterResult != null && resgiterResult.Status)
+            if (resgiterResult != null  )
             {
                 eventAggregator.SendMessage("注册成功", "Login");
                 //注册成功,返回登录页页面
@@ -93,7 +94,7 @@ namespace Todo.ViewModels.Dialogs
             }
             else
             {
-                eventAggregator.SendMessage(resgiterResult?.Message??"", "Login");
+                eventAggregator.SendMessage( "", "Login");
             }
             
         }

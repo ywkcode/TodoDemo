@@ -1,8 +1,12 @@
-﻿using System.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Prism.Ioc;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 using Todo.Common;
 using Todo.Common.Dialogs;
+using Todo.Entity;
+using Todo.IService;
 using Todo.Service;
 using Todo.ViewModels;
 using Todo.ViewModels.Dialogs;
@@ -45,10 +49,15 @@ namespace Todo
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.GetContainer()
-              .Register<HttpRestClient>(made: Parameters.Of.Type<string>(serviceKey: "webUrl"));
-            containerRegistry.GetContainer().RegisterInstance(@"http://localhost:3389/", serviceKey: "webUrl");
-
+            //containerRegistry.GetContainer()
+            //  .Register<HttpRestClient>(made: Parameters.Of.Type<string>(serviceKey: "webUrl"));
+            //containerRegistry.GetContainer().RegisterInstance(@"http://localhost:3389/", serviceKey: "webUrl");
+             
+           
+            var dbContextOptions = GetDbContextOptions(); 
+            containerRegistry.RegisterInstance<DbContextOptions<ToDoDbContext>>(dbContextOptions);
+            containerRegistry.Register<DbContext,ToDoDbContext>(); //  
+            containerRegistry.Register<ITodoLoginService, TodoLoginService>();
             containerRegistry.Register<IToDoService, ToDoService>();
             containerRegistry.Register<IDialogHostService, DialogHostService>();
             containerRegistry.Register<ILoginService, LoginService>();
@@ -64,6 +73,15 @@ namespace Todo
 
             containerRegistry.RegisterForNavigation<SkinView, SkinViewModel>();
             containerRegistry.RegisterForNavigation<AboutView, AboutViewModel>();
+        }
+
+        private DbContextOptions<ToDoDbContext> GetDbContextOptions()
+        {
+            // 这里应该是从配置文件、环境变量或其他配置源中获取连接字符串的逻辑
+            var connectionString = "Data Source=to.db"; // 示例连接字符串
+            return new DbContextOptionsBuilder<ToDoDbContext>()
+                .UseSqlite(connectionString)
+                .Options;
         }
     }
 

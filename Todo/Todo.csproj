@@ -22,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Todo.Base\Todo.Base.csproj" />
+    <ProjectReference Include="..\Todo.IService\Todo.IService.csproj" />
+    <ProjectReference Include="..\Todo.Service\Todo.Service.csproj" />
     <ProjectReference Include="..\Todo.Shared\Todo.Shared.csproj" />
   </ItemGroup>
 
