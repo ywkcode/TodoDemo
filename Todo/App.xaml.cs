@@ -10,8 +10,10 @@ using Todo.IService;
 using Todo.Service;
 using Todo.ViewModels;
 using Todo.ViewModels.Dialogs;
+using Todo.ViewModels.Duty;
 using Todo.Views;
 using Todo.Views.Dialogs;
+using Todo.Views.Duty;
 
 namespace Todo
 {
@@ -57,15 +59,21 @@ namespace Todo
             var dbContextOptions = GetDbContextOptions(); 
             containerRegistry.RegisterInstance<DbContextOptions<ToDoDbContext>>(dbContextOptions);
             containerRegistry.Register<DbContext,ToDoDbContext>(); //  
+
+            //注册实现
             containerRegistry.Register<ITodoLoginService, TodoLoginService>();
             containerRegistry.Register<IToDoService, ToDoService>();
             containerRegistry.Register<IDialogHostService, DialogHostService>();
             containerRegistry.Register<ILoginService, LoginService>();
+            containerRegistry.Register<IDutyOrderService, DutyOrderService>();
+             
             //注册弹窗
             containerRegistry.RegisterForNavigation<AddToDoView, AddToDoViewModel>();
             containerRegistry.RegisterForNavigation<MsgView, MsgViewModel>();
             containerRegistry.RegisterDialog<LoginView, LoginViewModel>();
 
+            //导航注册
+            containerRegistry.RegisterForNavigation<OrderView, OrderViewModel>();
             containerRegistry.RegisterForNavigation<IndexView,IndexViewModel>();
             containerRegistry.RegisterForNavigation<MemoView,MemoViewModel>();
             containerRegistry.RegisterForNavigation<SettingsView,SettingsViewModel>();

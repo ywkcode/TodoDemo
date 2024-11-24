@@ -98,6 +98,7 @@ namespace Todo.ViewModels
         {
             CreateMenuBar();
             regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("OrderView");
         }
     }
 }

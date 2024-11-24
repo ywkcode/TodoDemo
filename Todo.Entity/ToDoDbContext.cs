@@ -24,5 +24,7 @@ namespace Todo.Entity
         }
         
         public virtual DbSet<User>  User { get; set; }
+
+        public virtual DbSet<DutyOrder> DutyOrder { get; set; }
     }
 }
