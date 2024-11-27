@@ -23,5 +23,10 @@ namespace Todo.Service
             var results = this.Query<DutyOrder>(s => s.Id > 0).ToList();
             return await Task.Run(() => results);
         }
+
+        public void DeleteOrder(DutyOrder order)
+        { 
+           this.Delete<DutyOrder>(order);
+        }
     }
 }

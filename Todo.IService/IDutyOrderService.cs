@@ -11,6 +11,8 @@ namespace Todo.IService
     public  interface IDutyOrderService
     {
         Task<List<DutyOrder>> GetDataLists();
-       
+        void DeleteOrder(DutyOrder order);
+
+         
     }
 }
