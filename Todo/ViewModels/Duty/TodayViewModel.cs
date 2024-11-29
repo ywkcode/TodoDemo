@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Todo.ViewModels.Duty
 {
-    public class TodayViewModel
+    public class TodayViewModel : BindableBase
     {
+        public TodayViewModel()
+        {
+                
+        }
     }
 }

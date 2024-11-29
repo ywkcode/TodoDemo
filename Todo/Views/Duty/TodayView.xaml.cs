@@ -20,9 +20,17 @@ namespace Todo.Views.Duty
     /// </summary>
     public partial class TodayView : UserControl
     {
+        private static Timer timer;
         public TodayView()
         {
             InitializeComponent();
+            var timerCallback = new TimerCallback(DisplayTimeEvent);
+            timer = new Timer(timerCallback, null, 0, 1000);
+        }
+        //回调逻辑
+        private static void DisplayTimeEvent(Object? stateInfo)
+        {
+            Console.WriteLine("The TimerCallback event was raised at {0:HH:mm:ss.fff}", DateTime.Now);
         }
     }
 }
