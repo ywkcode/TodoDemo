@@ -66,7 +66,7 @@ namespace Todo
             containerRegistry.Register<IDialogHostService, DialogHostService>();
             containerRegistry.Register<ILoginService, LoginService>();
             containerRegistry.Register<IDutyOrderService, DutyOrderService>();
-             
+            containerRegistry.Register<IDutyPlanService, DutyPlanService>();
             //注册弹窗
             containerRegistry.RegisterForNavigation<AddToDoView, AddToDoViewModel>();
             containerRegistry.RegisterForNavigation<MsgView, MsgViewModel>();
@@ -77,10 +77,12 @@ namespace Todo
             containerRegistry.RegisterForNavigation<IndexView,IndexViewModel>();
             containerRegistry.RegisterForNavigation<MemoView,MemoViewModel>();
             containerRegistry.RegisterForNavigation<SettingsView,SettingsViewModel>();
-            containerRegistry.RegisterForNavigation<TodoView,TodoViewModel>();
-
+            containerRegistry.RegisterForNavigation<TodoView,TodoViewModel>(); 
             containerRegistry.RegisterForNavigation<SkinView, SkinViewModel>();
             containerRegistry.RegisterForNavigation<AboutView, AboutViewModel>();
+            containerRegistry.RegisterForNavigation<OrderView,OrderViewModel>();
+            containerRegistry.RegisterForNavigation<PlanView, PlanViewModel>();
+            containerRegistry.RegisterForNavigation<TodayView, TodayViewModel>();
         }
 
         private DbContextOptions<ToDoDbContext> GetDbContextOptions()

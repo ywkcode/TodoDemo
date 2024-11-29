@@ -18,7 +18,17 @@ namespace Todo.ViewModels.Duty
             dutyOrderService = dutyOrderServiceArg;
             AddOrderCommand = new DelegateCommand(AddOrder);
             DeleteCommand = new DelegateCommand<DutyOrder>(DeleteOrder);
+            SaveCommand = new DelegateCommand(SaveOrder);
             InitData();
+        }
+
+        private void SaveOrder()
+        {
+            var datas = dutyOrderService.GetDataLists();
+            foreach (var model in Orders)
+            { 
+            
+            }
         }
 
         private void DeleteOrder(DutyOrder obj)
@@ -30,18 +40,19 @@ namespace Todo.ViewModels.Duty
                 dutyOrderService.DeleteOrder(obj);
             }  
         }
-
+        /// <summary>
+        /// 新增一行
+        /// </summary>
         private void AddOrder()
         {
-            Orders.Add(new DutyOrder()
-            {
-
-            });
+            Orders.Add(new DutyOrder() { });
         }
 
         #region Property
         private ObservableCollection<DutyOrder> orders; 
         public DelegateCommand AddOrderCommand { get; private set; }
+
+        public DelegateCommand SaveCommand { get; private set; }
 
         public DelegateCommand<DutyOrder> DeleteCommand { get; private set; }
         #endregion

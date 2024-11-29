@@ -28,5 +28,10 @@ namespace Todo.Service
         { 
            this.Delete<DutyOrder>(order);
         }
+
+        public bool SaveOrder(DutyOrder order)
+        {
+            return true;
+        }
     }
 }

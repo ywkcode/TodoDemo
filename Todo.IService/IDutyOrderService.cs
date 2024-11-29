@@ -13,6 +13,6 @@ namespace Todo.IService
         Task<List<DutyOrder>> GetDataLists();
         void DeleteOrder(DutyOrder order);
 
-         
+        bool SaveOrder(DutyOrder order);
     }
 }

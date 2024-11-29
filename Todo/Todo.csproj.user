@@ -18,6 +18,12 @@
     <Compile Update="Views\Duty\OrderView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Duty\PlanView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Duty\TodayView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\IndexView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -54,6 +60,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Duty\OrderView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Duty\PlanView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Duty\TodayView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\IndexView.xaml">

@@ -97,8 +97,10 @@ namespace Todo.ViewModels
         public void Confiure()
         {
             CreateMenuBar();
-            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
-            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("OrderView");
+            //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
+            //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("OrderView");
+            //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("PlanView");
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("TodayView");
         }
     }
 }
