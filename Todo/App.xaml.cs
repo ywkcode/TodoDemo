@@ -83,6 +83,7 @@ namespace Todo
             containerRegistry.RegisterForNavigation<OrderView,OrderViewModel>();
             containerRegistry.RegisterForNavigation<PlanView, PlanViewModel>();
             containerRegistry.RegisterForNavigation<TodayView, TodayViewModel>();
+            containerRegistry.RegisterForNavigation<TemplateSettingView, TemplateSettingViewModel>();
         }
 
         private DbContextOptions<ToDoDbContext> GetDbContextOptions()

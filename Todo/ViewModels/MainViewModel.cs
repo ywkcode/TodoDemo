@@ -86,9 +86,11 @@ namespace Todo.ViewModels
         void CreateMenuBar()
         {
             MenuBars.Add(new MenuBar() { Icon = "Home", Title = "首页", NameSpace = "IndexView" });
-            MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "待办事项", NameSpace = "TodoView" });
-            MenuBars.Add(new MenuBar() { Icon = "NotebookPlus", Title = "备忘录", NameSpace = "MemoView" });
-            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "设置", NameSpace = "SettingsView" });
+            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模版配置", NameSpace = "TemplateSettingView" });
+            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "班次设置", NameSpace = "OrderView" });
+            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "排班管理", NameSpace = "PlanView" });
+            MenuBars.Add(new MenuBar() { Icon = "ClipboardAccount", Title = "今日排班", NameSpace = "TodayView" });
+            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "系统设置", NameSpace = "SettingsView" });
         }
 
         /// <summary>
@@ -100,7 +102,7 @@ namespace Todo.ViewModels
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("OrderView");
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("PlanView");
-            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("TodayView");
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("TemplateSettingView");
         }
     }
 }
