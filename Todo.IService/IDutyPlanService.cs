@@ -9,7 +9,7 @@ namespace Todo.IService
 {
     public interface IDutyPlanService
     {
-        Task<List<DutyPlan>> GetDataLists();
+        List<DutyPlan> GetDataLists();
         void DeletePlan(DutyPlan plan); 
         bool SavePlan(DutyPlan order);
     }

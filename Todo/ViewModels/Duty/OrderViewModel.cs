@@ -61,10 +61,10 @@ namespace Todo.ViewModels.Duty
             get { return orders; }
             set { orders = value; RaisePropertyChanged(); }
         }
-        async void InitData()
+         void InitData()
         {
             Orders = new ObservableCollection<DutyOrder>();
-            var results =await dutyOrderService.GetDataLists();
+            var results = dutyOrderService.GetDataLists();
             Orders.Clear();
             foreach (var item in results)
             {

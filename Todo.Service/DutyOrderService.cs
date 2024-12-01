@@ -18,10 +18,10 @@ namespace Todo.Service
         {
 
         }
-        public async Task<List<DutyOrder>> GetDataLists()
+        public List<DutyOrder> GetDataLists()
         {
             var results = this.Query<DutyOrder>(s => s.Id > 0).ToList();
-            return await Task.Run(() => results);
+            return results;
         }
 
         public void DeleteOrder(DutyOrder order)

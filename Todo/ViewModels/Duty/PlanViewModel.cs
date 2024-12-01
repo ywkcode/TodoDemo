@@ -57,10 +57,10 @@ namespace Todo.ViewModels.Duty
         #endregion
 
 
-        async void InitData()
+         void InitData()
         {
             Plans = new ObservableCollection<DutyPlan>();
-            var results = await planService.GetDataLists();
+            var results =  planService.GetDataLists();
             Plans.Clear();
             foreach (var item in results)
             {

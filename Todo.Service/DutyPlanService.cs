@@ -20,10 +20,10 @@ namespace Todo.Service
            
         }
 
-        public async Task<List<DutyPlan>> GetDataLists()
+        public List<DutyPlan> GetDataLists()
         {
             var results = this.Query<DutyPlan>(s => s.Id > 0).ToList();
-            return await Task.Run(() => results);
+            return results;
         }
 
         public bool SavePlan(DutyPlan order)

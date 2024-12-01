@@ -20,7 +20,7 @@
             <Label
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Content="今 日 值 班 安 排"
+                Content="{Binding TodayData.Title_Head}"
                 FontSize="40"
                 FontWeight="Bold" />
 
@@ -32,24 +32,24 @@
             VerticalAlignment="Top">
             <Label
                 Margin="5,25,5,20"
-                Content="2024年11月29日 星期二   时间 15:23"
+                Content="{Binding TodayData.CurrentDate}"
                 FontSize="35" />
 
             <Label
                 Margin="8"
-                Content="带班领导  张三"
+                Content="{Binding TodayData.Leader}"
                 FontSize="30" />
             <Label
                 Margin="8"
-                Content="联系电话  13233349932"
+                Content="{Binding TodayData.LeaderTel}"
                 FontSize="30" />
             <Label
                 Margin="8"
-                Content="值班人员  李四"
+                Content="{Binding TodayData.Dutyer}"
                 FontSize="30" />
             <Label
                 Margin="8"
-                Content="联系电话  13233349932"
+                Content="{Binding TodayData.DutyerTel}"
                 FontSize="30" />
         </StackPanel>
         <DockPanel
@@ -63,7 +63,7 @@
             <Label
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Content="维 码 科 技"
+                Content="{Binding TodayData.Title_End}"
                 FontSize="24">
 
                 <Label.Foreground>

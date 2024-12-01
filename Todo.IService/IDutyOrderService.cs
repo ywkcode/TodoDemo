@@ -10,7 +10,7 @@ namespace Todo.IService
 {
     public  interface IDutyOrderService
     {
-        Task<List<DutyOrder>> GetDataLists();
+        List<DutyOrder> GetDataLists();
         void DeleteOrder(DutyOrder order);
 
         bool SaveOrder(DutyOrder order);
