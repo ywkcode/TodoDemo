@@ -24,6 +24,9 @@
     <Compile Update="Views\Duty\TemplateSettingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Duty\TemplateView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Duty\TodayView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -69,6 +72,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Duty\TemplateSettingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Duty\TemplateView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Duty\TodayView.xaml">

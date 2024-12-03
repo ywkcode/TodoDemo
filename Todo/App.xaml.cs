@@ -33,7 +33,8 @@ namespace Todo
         protected override void OnInitialized()
         {
             var dialog = Container.Resolve<IDialogService>();
-            dialog.ShowDialog("LoginView", callback =>
+            //dialog.ShowDialog("LoginView", callback =>
+            dialog.ShowDialog("TemplateView", callback =>
             {
                 if (callback.Result != ButtonResult.OK)
                 {
@@ -84,6 +85,7 @@ namespace Todo
             containerRegistry.RegisterForNavigation<PlanView, PlanViewModel>();
             containerRegistry.RegisterForNavigation<TodayView, TodayViewModel>();
             containerRegistry.RegisterForNavigation<TemplateSettingView, TemplateSettingViewModel>();
+            containerRegistry.RegisterForNavigation<TemplateView, TemplateViewModel>();
         }
 
         private DbContextOptions<ToDoDbContext> GetDbContextOptions()

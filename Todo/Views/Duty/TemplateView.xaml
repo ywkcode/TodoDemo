@@ -1,0 +1,108 @@
+﻿<UserControl
+    x:Class="Todo.Views.Duty.TemplateView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:control="clr-namespace:Todo.DragDrop.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Todo.Views.Duty"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:Todo.DragDrop.Models"
+    xmlns:prism="http://prismlibrary.com/"
+    Width="800"
+    Height="450"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type control:DragThumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type control:DragThumb}">
+                        <Rectangle Fill="Transparent" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate DataType="{x:Type model:RectangleBase}">
+            <Grid Width="{Binding Width}" Height="{Binding Height}">
+                <Rectangle
+                    Width="100"
+                    Height="100"
+                    Fill="Blue" />
+                <control:DragThumb />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type model:DrawingBase}">
+            <Grid Width="{Binding Width}" Height="{Binding Height}">
+                <Path
+                    Data="{Binding Geometry}"
+                    Stretch="Fill"
+                    Stroke="Orange"
+                    StrokeThickness="1" />
+                <control:DragThumb />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type model:RectangleBaseToolItem}">
+            <Grid Width="{Binding Width}" Height="{Binding Height}">
+                <Rectangle
+                    Width="100"
+                    Height="100"
+                    Fill="Blue" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type model:DrawingBaseToolItem}">
+            <Grid Width="{Binding Width}" Height="{Binding Height}">
+                <Path Stroke="Orange" StrokeThickness="1">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="0,0">
+                                <BezierSegment
+                                    Point1="20,0"
+                                    Point2="10,10"
+                                    Point3="20,20" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ListBox
+            x:Name="toolbox"
+            Margin="3"
+            ItemsSource="{Binding ToolItems}"
+            SelectedItem="{Binding SelectedToolItem}">
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="control:DragAndDropProps.EnabledForDrag" Value="true" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ListBox>
+        <ItemsControl
+            x:Name="listbox"
+            Grid.Column="1"
+            Margin="3"
+            ItemsSource="{Binding Items}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <control:DiagramCanvas AllowDrop="True" Background="Transparent" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ContentPresenter}">
+                    <Setter Property="Canvas.Left" Value="{Binding Left}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Top}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+    </Grid>
+</UserControl>
