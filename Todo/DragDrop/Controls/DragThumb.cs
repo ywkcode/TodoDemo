@@ -20,6 +20,7 @@ namespace Todo.DragDrop.Controls
             base.DragCompleted += DragThumb_DragCompleted;
         }
 
+
         private ShapeBase ShapeBase { get { return DataContext as ShapeBase; } }
 
         private void DragThumb_DragCompleted(object sender, DragCompletedEventArgs e)

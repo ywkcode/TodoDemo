@@ -9,7 +9,9 @@ namespace Todo.ViewModels.Duty
         {
             ToolItems = new ObservableCollection<ShapeBase>()
                {
-                   new RectangleBase(){Width=20,Height=20}
+                   new RectangleBaseToolItem(){Width=20,Height=20},
+                     new RectangleBaseToolItem(){Width=20,Height=20},
+                       new RectangleBaseToolItem(){Width=20,Height=20}
                };
         }
 

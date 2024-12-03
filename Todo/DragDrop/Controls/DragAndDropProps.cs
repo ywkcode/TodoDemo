@@ -62,7 +62,7 @@ namespace Todo.DragDrop.Controls
 
         static void Fe_MouseMove(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine(e.GetPosition((IInputElement)sender));
+           
 
 
             if (e.LeftButton != MouseButtonState.Pressed)
@@ -81,7 +81,7 @@ namespace Todo.DragDrop.Controls
 
                 string type = toolBoxData.GetType().FullName.Replace("ToolItem", "");
                 dataObject.ShapeBase = Activator.CreateInstance(Type.GetType(type)) as ShapeBase;
-
+                
 
 
                 System.Windows.DragDrop.DoDragDrop((DependencyObject)sender, dataObject, DragDropEffects.Copy);

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -64,9 +66,9 @@ namespace Todo.DragDrop.Controls
         protected override void OnDrop(DragEventArgs e)
         {
             base.OnDrop(e);
-
+            Debug.WriteLine("OnDrop");
             DragObject dragObject = e.Data.GetData(typeof(DragObject)) as DragObject;
-            if (dragObject != null)
+            if (dragObject != null  )
             {
                 Point position = e.GetPosition(this);
 
@@ -77,6 +79,7 @@ namespace Todo.DragDrop.Controls
                 lineBase.Width = 100;
                 lineBase.Height = 100;
                 mainViewModel.Items.Add(lineBase);
+                Debug.WriteLine("Add Shape");
             }
 
             e.Handled = true;
