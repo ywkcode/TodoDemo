@@ -29,19 +29,11 @@
         <Style x:Key="ToolLabel" TargetType="Label">
             <Setter Property="Foreground" Value="Gray" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
+
         </Style>
         <DataTemplate DataType="{x:Type model:RectangleBase}">
             <Grid Width="100" Height="70">
-                <!--<StackPanel>
-                    <Rectangle
-                        Width="100"
-                        Height="40"
-                        Fill="LightGray"
-                        RadiusX="10"
-                        RadiusY="10" />
-                    <control:DragThumb />
-                    <Label Style="{StaticResource ToolLabel}">文  本</Label>
-                </StackPanel>-->
+
                 <Rectangle
                     Width="100"
                     Height="40"
@@ -73,12 +65,14 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition />
+            <ColumnDefinition Width="160" />
         </Grid.ColumnDefinitions>
 
         <ListBox
             x:Name="toolbox"
             Margin="3"
-            BorderBrush="AliceBlue"
+            BorderBrush="LightGray"
+            BorderThickness="1"
             ItemsSource="{Binding ToolItems}"
             SelectedItem="{Binding SelectedToolItem}">
             <ItemsControl.ItemContainerStyle>
@@ -91,6 +85,8 @@
             x:Name="listbox"
             Grid.Column="1"
             Margin="3"
+            BorderBrush="LightGray"
+            BorderThickness="1"
             ItemsSource="{Binding Items}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -104,5 +100,53 @@
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
+
+
+        <Border
+            Grid.Column="2"
+            Margin="0,3,5,3"
+            BorderBrush="LightGray"
+            BorderThickness="1">
+            <StackPanel>
+                <Label Content="属性设置" Foreground="black" />
+                <Border BorderBrush="LightGray" BorderThickness="0,0,0,0.9" />
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Content="宽度:"
+                        Foreground="black" />
+                    <TextBox
+                        Name="txtUsername"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Foreground="black" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Content="高度:"
+                        Foreground="black" />
+                    <TextBox
+                        Name="txtHeight"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Foreground="black" />
+
+                </Grid>
+            </StackPanel>
+
+        </Border>
     </Grid>
 </UserControl>
