@@ -11,6 +11,7 @@ namespace Todo.DragDrop.Models
     /// </summary>
     public class RectangleBase:ShapeBase
     {
+      
     }
     public class RectangleBaseToolItem : RectangleBase
     {

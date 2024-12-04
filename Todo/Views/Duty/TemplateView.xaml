@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:control="clr-namespace:Todo.DragDrop.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:Todo.Views.Duty"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -26,6 +27,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
         <Style x:Key="ToolLabel" TargetType="Label">
             <Setter Property="Foreground" Value="Gray" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -33,13 +35,18 @@
         </Style>
         <DataTemplate DataType="{x:Type model:RectangleBase}">
             <Grid Width="100" Height="70">
-
                 <Rectangle
                     Width="100"
                     Height="40"
                     Fill="LightGray"
                     RadiusX="10"
-                    RadiusY="10" />
+                    RadiusY="10">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding MouseDownCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Rectangle>
                 <control:DragThumb />
             </Grid>
         </DataTemplate>

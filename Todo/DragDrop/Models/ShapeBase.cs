@@ -50,5 +50,30 @@ namespace Todo.DragDrop.Models
                 SetProperty(ref _height, value);
             }
         }
+
+        private bool _isSelectd;
+        public bool IsSelectd {
+            get
+            {
+                return _isSelectd;
+            }
+            set
+            {
+                SetProperty(ref _isSelectd, value);
+            }
+        }
+
+        private string _id;
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                SetProperty(ref _id, value);
+            }
+        }
     }
 }

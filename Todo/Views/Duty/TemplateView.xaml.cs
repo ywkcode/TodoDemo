@@ -24,5 +24,11 @@ namespace Todo.Views.Duty
         {
             InitializeComponent();
         }
+
+        private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // 这里是点击事件发生时执行的代码
+            MessageBox.Show("Rectangle 被点击了！");
+        }
     }
 }

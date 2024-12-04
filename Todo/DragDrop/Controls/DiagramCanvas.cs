@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using System.Security.Cryptography.Xml;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -78,8 +79,8 @@ namespace Todo.DragDrop.Controls
                 lineBase.Top = position.Y;
                 lineBase.Width = 100;
                 lineBase.Height = 100;
-                mainViewModel.Items.Add(lineBase);
-                Debug.WriteLine("Add Shape");
+                lineBase.Id = Guid.NewGuid().ToString();
+                mainViewModel.Items.Add(lineBase);  
             }
 
             e.Handled = true;

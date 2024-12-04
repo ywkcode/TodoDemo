@@ -13,6 +13,12 @@ namespace Todo.ViewModels.Duty
                      new RectangleBaseToolItem(){Width=20,Height=20},
                        new RectangleBaseToolItem(){Width=20,Height=20}
                };
+            MouseDownCommand = new DelegateCommand(CanvasMouseDown);
+        }
+
+        private void CanvasMouseDown()
+        {
+            var aaa = "";
         }
 
         public DialogCloseListener RequestClose { get; set; }
@@ -40,6 +46,8 @@ namespace Todo.ViewModels.Duty
             get { return _items; }
             set { SetProperty(ref _items, value); }
         }
+
+        public DelegateCommand MouseDownCommand;
         #endregion
         public bool CanCloseDialog()
         {
