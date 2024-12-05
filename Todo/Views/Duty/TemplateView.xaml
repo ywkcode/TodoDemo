@@ -31,24 +31,32 @@
         <Style x:Key="ToolLabel" TargetType="Label">
             <Setter Property="Foreground" Value="Gray" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
-
         </Style>
+
+
+
         <DataTemplate DataType="{x:Type model:RectangleBase}">
-            <Grid Width="100" Height="70">
-                <Rectangle
-                    Width="100"
-                    Height="40"
-                    Fill="LightGray"
-                    RadiusX="10"
-                    RadiusY="10">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding MouseDownCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Rectangle>
-                <control:DragThumb />
+            <Grid Width="101" Height="40">
+                <Grid x:Name="grid" Cursor="Hand">
+                    <Rectangle
+                        x:Name="cvrect"
+                        Width="100"
+                        Height="40"
+                        Panel.ZIndex="999"
+                        Fill="LightGray"
+                        RadiusX="10"
+                        RadiusY="10" />
+                    <control:DragThumb />
+                </Grid>
             </Grid>
+            <!--  增加边框线  -->
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding ElementName=grid, Path=IsMouseOver}" Value="true">
+                    <Setter TargetName="cvrect" Property="Stroke" Value="Blue" />
+                    <Setter TargetName="cvrect" Property="StrokeThickness" Value="1" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+
         </DataTemplate>
 
 
@@ -100,10 +108,12 @@
                     <control:DiagramCanvas AllowDrop="True" Background="Transparent" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="{x:Type ContentPresenter}">
                     <Setter Property="Canvas.Left" Value="{Binding Left}" />
                     <Setter Property="Canvas.Top" Value="{Binding Top}" />
+
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
@@ -138,7 +148,8 @@
                         Name="txtUsername"
                         Grid.Row="0"
                         Grid.Column="1"
-                        Foreground="black" />
+                        Foreground="black"
+                        Text="{Binding SelectedItem.Id}" />
 
                     <Label
                         Grid.Row="1"

@@ -40,6 +40,13 @@ namespace Todo.ViewModels.Duty
         }
 
 
+        private ShapeBase _selectedItem =new ShapeBase();
+        public ShapeBase SelectedItem
+        {
+            get { return _selectedItem; }
+            set { SetProperty(ref _selectedItem, value); }
+        }
+
         private ObservableCollection<ShapeBase> _items = new ObservableCollection<ShapeBase>();
         public ObservableCollection<ShapeBase> Items
         {
@@ -47,7 +54,7 @@ namespace Todo.ViewModels.Duty
             set { SetProperty(ref _items, value); }
         }
 
-        public DelegateCommand MouseDownCommand;
+        public DelegateCommand MouseDownCommand { get; set; }
         #endregion
         public bool CanCloseDialog()
         {

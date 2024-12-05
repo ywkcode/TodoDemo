@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Shapes;
 using Todo.DragDrop.Models;
 using Todo.ViewModels.Duty;
 
@@ -13,7 +14,7 @@ namespace Todo.DragDrop.Controls
     public class DiagramCanvas : Canvas
     {
         private Point? rubberbandSelectionStartPoint = null;
-        protected override void OnMouseDown(MouseButtonEventArgs e)
+        protected override void OnMouseDown( MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
 
@@ -22,11 +23,18 @@ namespace Todo.DragDrop.Controls
                 //if we are source of event, we are rubberband selecting
                 if (e.Source == this)
                 {
+                   
                     // in case that this click is the start for a 
                     // drag operation we cache the start point
                     Point currentPoint = e.GetPosition(this);
                     rubberbandSelectionStartPoint = currentPoint;
-
+                   
+                }
+                var selectItem =(RectangleBase) ((Rectangle)e.Source).DataContext;
+                if (selectItem != null)
+                {
+                    TemplateViewModel mainViewModel = this.DataContext as TemplateViewModel;
+                    mainViewModel.SelectedItem= selectItem;
                 }
             }
         }
