@@ -37,16 +37,18 @@
 
         <DataTemplate DataType="{x:Type model:RectangleBase}">
             <Grid Width="101" Height="40">
-                <Grid x:Name="grid" Cursor="Hand">
+                <Grid
+                    x:Name="grid"
+                    Panel.ZIndex="999"
+                    Cursor="Hand">
                     <Rectangle
                         x:Name="cvrect"
                         Width="100"
                         Height="40"
-                        Panel.ZIndex="999"
                         Fill="LightGray"
                         RadiusX="10"
                         RadiusY="10" />
-                    <control:DragThumb />
+                    <control:DragThumb PreviewMouseDown="Canvas_MouseLeftButtonDown" />
                 </Grid>
             </Grid>
             <!--  增加边框线  -->

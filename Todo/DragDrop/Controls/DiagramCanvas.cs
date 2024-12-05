@@ -30,12 +30,7 @@ namespace Todo.DragDrop.Controls
                     rubberbandSelectionStartPoint = currentPoint;
                    
                 }
-                var selectItem =(RectangleBase) ((Rectangle)e.Source).DataContext;
-                if (selectItem != null)
-                {
-                    TemplateViewModel mainViewModel = this.DataContext as TemplateViewModel;
-                    mainViewModel.SelectedItem= selectItem;
-                }
+               
             }
         }
 

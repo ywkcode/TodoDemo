@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Todo.DragDrop.Models;
+using Todo.ViewModels.Duty;
 
 namespace Todo.Views.Duty
 {
@@ -26,9 +28,16 @@ namespace Todo.Views.Duty
         }
 
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        
         {
             // 这里是点击事件发生时执行的代码
-            MessageBox.Show("Rectangle 被点击了！");
+            //MessageBox.Show("Rectangle 被点击了！");
+            var selectItem = (RectangleBase)((Rectangle)e.OriginalSource).DataContext;
+            if (selectItem != null)
+            {
+                TemplateViewModel mainViewModel = this.DataContext as TemplateViewModel;
+                mainViewModel.SelectedItem = selectItem;
+            }
         }
     }
 }
