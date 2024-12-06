@@ -9,9 +9,9 @@ namespace Todo.ViewModels.Duty
         {
             ToolItems = new ObservableCollection<ShapeBase>()
                {
-                   new RectangleBaseToolItem(){Width=20,Height=20},
-                     new RectangleBaseToolItem(){Width=20,Height=20},
-                       new RectangleBaseToolItem(){Width=20,Height=20}
+                   new RectangleBaseToolItem(){Width=100,Height=40},
+                     new RectangleBaseToolItem(){Width=100,Height=40},
+                       new RectangleBaseToolItem(){Width=100,Height=40}
                };
             MouseDownCommand = new DelegateCommand(CanvasMouseDown);
         }

@@ -81,7 +81,7 @@ namespace Todo.DragDrop.Controls
                 lineBase.Left = position.X;
                 lineBase.Top = position.Y;
                 lineBase.Width = 100;
-                lineBase.Height = 100;
+                lineBase.Height = 40;
                 lineBase.Id = Guid.NewGuid().ToString();
                 mainViewModel.Items.Add(lineBase);  
             }
