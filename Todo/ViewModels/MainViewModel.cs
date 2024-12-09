@@ -102,7 +102,7 @@ namespace Todo.ViewModels
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("OrderView");
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("PlanView");
-            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("TemplateSettingView");
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("ColorPickerView");
         }
     }
 }

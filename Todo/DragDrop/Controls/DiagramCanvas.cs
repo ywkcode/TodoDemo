@@ -82,6 +82,9 @@ namespace Todo.DragDrop.Controls
                 lineBase.Top = position.Y;
                 lineBase.Width = 100;
                 lineBase.Height = 40;
+                lineBase.FillColor = "LightGray";
+                lineBase.FontColor = "black";
+                lineBase.FontSize = "16";
                 lineBase.Id = Guid.NewGuid().ToString();
                 mainViewModel.Items.Add(lineBase);  
             }

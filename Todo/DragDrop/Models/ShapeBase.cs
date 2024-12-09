@@ -75,5 +75,61 @@ namespace Todo.DragDrop.Models
                 SetProperty(ref _id, value);
             }
         }
+
+        private string fontColor;
+
+        public string FontColor
+        {
+            get
+            {
+                return fontColor;
+            }
+            set
+            {
+                SetProperty(ref fontColor, value);
+            }
+        }
+        private string fillColor;
+
+        public string FillColor
+        {
+            get
+            {
+                return fillColor;
+            }
+            set
+            {
+                SetProperty(ref fillColor, value);
+            }
+        }
+
+        private string fontSize;
+
+        public string FontSize
+        {
+            get
+            {
+                return fontSize;
+            }
+            set
+            {
+                SetProperty(ref fontSize, value);
+            }
+        }
+
+        private string baseContent;
+
+        public string BaseContent
+        {
+            get
+            {
+                return baseContent;
+            }
+            set
+            {
+                SetProperty(ref baseContent, value);
+            }
+        }
+
     }
 }

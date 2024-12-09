@@ -1,11 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using Prism.Dialogs;
+using System.Collections.ObjectModel;
+using Todo.Common.Dialogs;
 using Todo.DragDrop.Models;
 
 namespace Todo.ViewModels.Duty
 {
     public class TemplateViewModel : BindableBase, IDialogAware
     {
-        public TemplateViewModel()
+        private readonly IDialogHostService dialogService;
+        public TemplateViewModel(IDialogHostService dialogHostServiceArg)
         {
             ToolItems = new ObservableCollection<ShapeBase>()
                {
@@ -14,6 +17,28 @@ namespace Todo.ViewModels.Duty
                        new RectangleBaseToolItem(){Width=100,Height=40}
                };
             MouseDownCommand = new DelegateCommand(CanvasMouseDown);
+            GetColorCommand = new DelegateCommand<string>(OpenColorPicker);
+            dialogService = dialogHostServiceArg;
+        }
+
+        private async void OpenColorPicker(string colorType)
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("Type", colorType);
+             var dialogResult = await dialogService.ShowDialog("ColorPickerView", parameters, "Template");
+
+            if (dialogResult.Result is ButtonResult.OK)
+            {
+                if (dialogResult.Parameters["Type"]?.ToString() == "FillColor")
+                {
+                    this.SelectedItem.FillColor = dialogResult.Parameters["Value"]?.ToString() ?? "";
+                }
+                if (dialogResult.Parameters["Type"]?.ToString() == "FontColor")
+                {
+                    this.SelectedItem.FontColor = dialogResult.Parameters["Value"]?.ToString() ?? "";
+                }
+            }
+            
         }
 
         private void CanvasMouseDown()
@@ -55,6 +80,8 @@ namespace Todo.ViewModels.Duty
         }
 
         public DelegateCommand MouseDownCommand { get; set; }
+
+        public DelegateCommand<string> GetColorCommand { get; set; }
         #endregion
         public bool CanCloseDialog()
         {

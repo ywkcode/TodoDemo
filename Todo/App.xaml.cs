@@ -35,6 +35,7 @@ namespace Todo
             var dialog = Container.Resolve<IDialogService>();
             //dialog.ShowDialog("LoginView", callback =>
             dialog.ShowDialog("TemplateView", callback =>
+            //dialog.ShowDialog("ColorPickerView", callback =>
             {
                 if (callback.Result != ButtonResult.OK)
                 {
@@ -72,7 +73,7 @@ namespace Todo
             containerRegistry.RegisterForNavigation<AddToDoView, AddToDoViewModel>();
             containerRegistry.RegisterForNavigation<MsgView, MsgViewModel>();
             containerRegistry.RegisterDialog<LoginView, LoginViewModel>();
-
+            containerRegistry.RegisterForNavigation<ColorPickerView, ColorPickerViewModel>(); //取色器
             //导航注册
             containerRegistry.RegisterForNavigation<OrderView, OrderViewModel>();
             containerRegistry.RegisterForNavigation<IndexView,IndexViewModel>();

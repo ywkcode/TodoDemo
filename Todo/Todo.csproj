@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Dialogs\ColorPicker.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\login.png" />
     <None Remove="Images\user.jpg" />
     <None Remove="Images\wind.png" />
