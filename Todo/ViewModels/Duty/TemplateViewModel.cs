@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DryIoc;
+using Newtonsoft.Json;
 using Prism.Dialogs;
 using System.Collections.ObjectModel;
 using Todo.Common.Dialogs;
@@ -11,9 +12,12 @@ namespace Todo.ViewModels.Duty
     {
         private readonly IDialogHostService dialogService;
         private readonly IDutyTemplateService templateService;
+        private readonly string currentView = "Template";
         public TemplateViewModel(IDialogHostService dialogHostServiceArg,IDutyTemplateService templateServiceArg)
         {
             templateService=templateServiceArg;
+            dialogService = dialogHostServiceArg;
+
             ToolItems = new ObservableCollection<ShapeBase>()
                {
                    new RectangleBaseToolItem(){Width=100,Height=40},
@@ -23,17 +27,38 @@ namespace Todo.ViewModels.Duty
             MouseDownCommand = new DelegateCommand(CanvasMouseDown);
             GetColorCommand = new DelegateCommand<string>(OpenColorPicker);
             ExecuteCommand = new DelegateCommand<string>(Excute);
-            dialogService = dialogHostServiceArg;
+     
+            InitData();
         }
-
+        private void InitData()
+        {
+            var model = templateService.GetSingle(1);
+            if (model != null)
+            {
+                var datas = JsonConvert.DeserializeObject<List<RectangleBase>>(model.Content);
+                foreach (var data in datas)
+                {
+                    
+                    Items.Add(data);
+                }
+            }
+        }
         private void Excute(string type)
         {
             if (type == "Save")
             {
-                templateService.SaveTemplate(new Entity.DutyTemplate()
+                if (Items.Any())
                 {
-                    Content = JsonConvert.SerializeObject(Items)
-                });
+                    templateService.SaveTemplate(new Entity.DutyTemplate()
+                    {
+                        Content = JsonConvert.SerializeObject(Items)
+                    });
+                    dialogService.ShowSuccessDialog(currentView);
+                } 
+               else
+                {
+                    dialogService.ShowWarningDialog($"请选择合适的控件完成模版",currentView);
+                }
             }
         }
 

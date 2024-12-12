@@ -10,5 +10,7 @@ namespace Todo.IService
     public  interface IDutyTemplateService
     {
         bool SaveTemplate(DutyTemplate template);
+
+        DutyTemplate GetSingle(int Id);
     }
 }

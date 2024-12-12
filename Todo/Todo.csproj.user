@@ -18,6 +18,9 @@
     <Compile Update="Views\Dialogs\ColorPickerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Dialogs\MessageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Duty\OrderView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -69,6 +72,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Dialogs\ColorPickerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Dialogs\MessageView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Duty\OrderView.xaml">

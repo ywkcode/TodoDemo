@@ -1,10 +1,12 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using DryIoc;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Todo.Base;
 
 namespace Todo.Common.Dialogs
 {
@@ -19,6 +21,8 @@ namespace Todo.Common.Dialogs
         {
             this.containerExtension = containerExtension;
         }
+
+        
 
         public async Task<IDialogResult> ShowDialog(string name, IDialogParameters parameters, string dialogHostName = "Root")
         {
@@ -50,6 +54,26 @@ namespace Todo.Common.Dialogs
             };
 
             return (IDialogResult)await DialogHost.Show(dialogContent, viewModel.DialogHostName, eventHandler);
+        }
+
+        public async Task<IDialogResult> ShowErrorDialog(string content, string dialogHostName = "Root")
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("Content", content);
+            return await this.ShowDialog(DefaultConst.Default_MessageView, parameters, dialogHostName);
+        }
+
+        public async Task<IDialogResult> ShowSuccessDialog( string dialogHostName = "Root")
+        {
+            return await this.ShowDialog(DefaultConst.Default_MessageView, null, dialogHostName);
+        }
+
+        public async Task<IDialogResult> ShowWarningDialog(string content,string dialogHostName = "Root")
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("Content", content);
+            parameters.Add("Title", "消息提示");
+            return await this.ShowDialog(DefaultConst.Default_MessageView, parameters, dialogHostName);
         }
     }
 }

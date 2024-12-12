@@ -74,6 +74,8 @@ namespace Todo
             containerRegistry.RegisterForNavigation<AddToDoView, AddToDoViewModel>();
             containerRegistry.RegisterForNavigation<MsgView, MsgViewModel>();
             containerRegistry.RegisterDialog<LoginView, LoginViewModel>();
+
+            containerRegistry.RegisterForNavigation<MessageView, MessageViewModel>(); //消息提示框
             containerRegistry.RegisterForNavigation<ColorPickerView, ColorPickerViewModel>(); //取色器
             //导航注册
             containerRegistry.RegisterForNavigation<OrderView, OrderViewModel>();

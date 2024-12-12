@@ -236,7 +236,10 @@
                                             Width="20"
                                             Height="20"
                                             Command="{Binding GetColorCommand}"
-                                            CommandParameter="FontColor" />
+                                            CommandParameter="FontColor"
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                                            <materialDesign:PackIcon Kind="EyedropperVariant" />
+                                        </Button>
                                         <Label
                                             Width="59"
                                             Content="{Binding SelectedItem.FontColor}"
@@ -308,7 +311,10 @@
                                             Height="20"
                                             Command="{Binding GetColorCommand}"
                                             CommandParameter="FillColor"
-                                            Content="" />
+                                            Style="{StaticResource MaterialDesignFloatingActionButton}">
+                                            <materialDesign:PackIcon Kind="EyedropperVariant" />
+                                        </Button>
+
                                         <Label
                                             Width="60"
                                             Content="{Binding SelectedItem.FillColor}"

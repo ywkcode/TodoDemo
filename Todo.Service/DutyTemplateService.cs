@@ -15,5 +15,10 @@ namespace Todo.Service
             this.Insert(template);
             return true;
         }
+
+        public DutyTemplate GetSingle(int Id)
+        {
+            return this.Find<DutyTemplate>(Id);
+        }
     }
 }
