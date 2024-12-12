@@ -69,6 +69,7 @@ namespace Todo
             containerRegistry.Register<ILoginService, LoginService>();
             containerRegistry.Register<IDutyOrderService, DutyOrderService>();
             containerRegistry.Register<IDutyPlanService, DutyPlanService>();
+            containerRegistry.Register<IDutyTemplateService, DutyTemplateService>();
             //注册弹窗
             containerRegistry.RegisterForNavigation<AddToDoView, AddToDoViewModel>();
             containerRegistry.RegisterForNavigation<MsgView, MsgViewModel>();

@@ -28,5 +28,7 @@ namespace Todo.Entity
         public virtual DbSet<DutyOrder> DutyOrder { get; set; }
 
         public virtual DbSet<DutyPlan> DutyPlan { get; set; }
+
+        public virtual DbSet<DutyTemplate> DutyTemplate { get; set; }
     }
 }

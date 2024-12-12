@@ -1,15 +1,19 @@
-﻿using Prism.Dialogs;
+﻿using Newtonsoft.Json;
+using Prism.Dialogs;
 using System.Collections.ObjectModel;
 using Todo.Common.Dialogs;
 using Todo.DragDrop.Models;
+using Todo.IService;
 
 namespace Todo.ViewModels.Duty
 {
     public class TemplateViewModel : BindableBase, IDialogAware
     {
         private readonly IDialogHostService dialogService;
-        public TemplateViewModel(IDialogHostService dialogHostServiceArg)
+        private readonly IDutyTemplateService templateService;
+        public TemplateViewModel(IDialogHostService dialogHostServiceArg,IDutyTemplateService templateServiceArg)
         {
+            templateService=templateServiceArg;
             ToolItems = new ObservableCollection<ShapeBase>()
                {
                    new RectangleBaseToolItem(){Width=100,Height=40},
@@ -18,7 +22,19 @@ namespace Todo.ViewModels.Duty
                };
             MouseDownCommand = new DelegateCommand(CanvasMouseDown);
             GetColorCommand = new DelegateCommand<string>(OpenColorPicker);
+            ExecuteCommand = new DelegateCommand<string>(Excute);
             dialogService = dialogHostServiceArg;
+        }
+
+        private void Excute(string type)
+        {
+            if (type == "Save")
+            {
+                templateService.SaveTemplate(new Entity.DutyTemplate()
+                {
+                    Content = JsonConvert.SerializeObject(Items)
+                });
+            }
         }
 
         private async void OpenColorPicker(string colorType)
@@ -43,7 +59,7 @@ namespace Todo.ViewModels.Duty
 
         private void CanvasMouseDown()
         {
-            var aaa = "";
+             
         }
 
         public DialogCloseListener RequestClose { get; set; }
@@ -82,6 +98,9 @@ namespace Todo.ViewModels.Duty
         public DelegateCommand MouseDownCommand { get; set; }
 
         public DelegateCommand<string> GetColorCommand { get; set; }
+
+        public DelegateCommand<string> ExecuteCommand { get; set; }
+
         #endregion
         public bool CanCloseDialog()
         {
