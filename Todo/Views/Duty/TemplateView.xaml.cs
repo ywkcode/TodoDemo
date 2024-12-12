@@ -25,7 +25,11 @@ namespace Todo.Views.Duty
         public TemplateView()
         {
             InitializeComponent();
+           
+            
         }
+
+    
 
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         

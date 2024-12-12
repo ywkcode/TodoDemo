@@ -35,6 +35,7 @@
             VerticalAlignment="Center"
             d:Text="操作成功！"
             FontSize="14"
+            FontStretch="UltraExpanded"
             Text="{Binding Content}"
             TextAlignment="Center"
             TextWrapping="Wrap" />

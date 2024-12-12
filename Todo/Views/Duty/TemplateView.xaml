@@ -10,10 +10,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="clr-namespace:Todo.DragDrop.Models"
     xmlns:prism="http://prismlibrary.com/"
-    Width="800"
-    Height="450"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    Width="1200"
+    Height="700"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
 
@@ -87,8 +87,8 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
-                <ColumnDefinition />
-                <ColumnDefinition Width="160" />
+                <ColumnDefinition Width="900" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
             <ListBox
@@ -129,7 +129,7 @@
             <!--  基础属性  -->
             <Border
                 Grid.Column="2"
-                Margin="0,3,5,3"
+                Margin="0,3,10,3"
                 BorderBrush="LightGray"
                 BorderThickness="1">
                 <Grid>
@@ -241,7 +241,7 @@
                                             <materialDesign:PackIcon Kind="EyedropperVariant" />
                                         </Button>
                                         <Label
-                                            Width="59"
+                                            Width="auto"
                                             Content="{Binding SelectedItem.FontColor}"
                                             Foreground="black" />
                                     </DockPanel>
@@ -316,7 +316,7 @@
                                         </Button>
 
                                         <Label
-                                            Width="60"
+                                            Width="auto"
                                             Content="{Binding SelectedItem.FillColor}"
                                             Foreground="black" />
 
@@ -333,7 +333,8 @@
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Foreground="black"
-                                    Text="{Binding SelectedItem.BaseContent}" />
+                                    Text="{Binding SelectedItem.BaseContent}"
+                                    TextWrapping="NoWrap" />
                             </StackPanel>
                             <DockPanel Grid.Row="2">
                                 <Label
@@ -343,14 +344,14 @@
                                     Foreground="black" />
 
                                 <ComboBox
+                                    x:Name="cmbox"
                                     Grid.Row="2"
                                     Grid.Column="1"
-                                    Width="120">
-                                    <ComboBoxItem>值班人</ComboBoxItem>
-                                    <ComboBoxItem>值班人电话</ComboBoxItem>
-                                    <ComboBoxItem>领导</ComboBoxItem>
-                                    <ComboBoxItem>领导电话</ComboBoxItem>
-                                </ComboBox>
+                                    Width="auto"
+                                    DataContext="{Binding FieldItems}"
+                                    DisplayMemberPath="Name"
+                                    SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                    SelectedValuePath="Description" />
                             </DockPanel>
 
                         </Grid>

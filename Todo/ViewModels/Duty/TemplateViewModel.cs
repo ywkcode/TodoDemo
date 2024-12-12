@@ -24,6 +24,13 @@ namespace Todo.ViewModels.Duty
                      new RectangleBaseToolItem(){Width=100,Height=40},
                        new RectangleBaseToolItem(){Width=100,Height=40}
                };
+            FieldItems = new ObservableCollection<FieldModel>()
+            {
+                new FieldModel(){FieldName="领导",FieldValue="Leader"},
+                 new FieldModel(){FieldName="领导电话",FieldValue="LeaderTel"},
+                  new FieldModel(){FieldName="值班人员",FieldValue="Dutyer"},
+                   new FieldModel(){FieldName="值班人员电话",FieldValue="DutyerTel"}
+            };
             MouseDownCommand = new DelegateCommand(CanvasMouseDown);
             GetColorCommand = new DelegateCommand<string>(OpenColorPicker);
             ExecuteCommand = new DelegateCommand<string>(Excute);
@@ -37,10 +44,22 @@ namespace Todo.ViewModels.Duty
             {
                 var datas = JsonConvert.DeserializeObject<List<RectangleBase>>(model.Content);
                 foreach (var data in datas)
-                {
-                    
+                { 
                     Items.Add(data);
                 }
+            }
+
+            var fieldDic=new List<FieldModel>();
+            fieldDic.Add(new FieldModel() { FieldName="领导",FieldValue="Leader"});
+
+        }
+
+        public class FieldModel
+        {
+            public string FieldName { get; set; }
+            public string FieldValue
+            {
+                get; set;
             }
         }
         private void Excute(string type)
@@ -62,11 +81,20 @@ namespace Todo.ViewModels.Duty
             }
         }
 
+        /// <summary>
+        /// 打开取色器
+        /// </summary>
+        /// <param name="colorType"></param>
         private async void OpenColorPicker(string colorType)
         {
+            if (SelectedItem.Id is null)
+            {
+                await dialogService.ShowWarningDialog("请先选择控件!", currentView);
+                return;
+            }
             var parameters = new DialogParameters();
             parameters.Add("Type", colorType);
-             var dialogResult = await dialogService.ShowDialog("ColorPickerView", parameters, "Template");
+             var dialogResult = await dialogService.ShowDialog("ColorPickerView", parameters, currentView);
 
             if (dialogResult.Result is ButtonResult.OK)
             {
@@ -119,7 +147,7 @@ namespace Todo.ViewModels.Duty
             get { return _items; }
             set { SetProperty(ref _items, value); }
         }
-
+        public ObservableCollection<FieldModel> FieldItems { get; set; }
         public DelegateCommand MouseDownCommand { get; set; }
 
         public DelegateCommand<string> GetColorCommand { get; set; }
