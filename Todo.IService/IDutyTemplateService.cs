@@ -11,6 +11,8 @@ namespace Todo.IService
     {
         bool SaveTemplate(DutyTemplate template);
 
+        bool UpDateTemplate(DutyTemplate template);
+
         DutyTemplate GetSingle(int Id);
     }
 }

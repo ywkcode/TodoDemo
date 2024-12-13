@@ -88,10 +88,22 @@ namespace Todo.ViewModels.Duty
             {
                 if (Items.Any())
                 {
-                    templateService.SaveTemplate(new Entity.DutyTemplate()
+                    var model = templateService.GetSingle(1);
+                    if (model?.Id > 0)
                     {
-                        Content = JsonConvert.SerializeObject(Items)
-                    });
+                        model.Content = JsonConvert.SerializeObject(Items);
+                        templateService.UpDateTemplate(model);
+
+                    }
+                    else
+                    {
+                        templateService.SaveTemplate(new Entity.DutyTemplate()
+                        {
+                            Content = JsonConvert.SerializeObject(Items)
+                        });
+                    } 
+
+                  
                     dialogService.ShowSuccessDialog(currentView);
                 } 
                else

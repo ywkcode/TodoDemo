@@ -16,6 +16,12 @@ namespace Todo.Service
             return true;
         }
 
+        public bool UpDateTemplate(DutyTemplate template)
+        {
+            this.Update(template);
+            return true;
+        }
+
         public DutyTemplate GetSingle(int Id)
         {
             return this.Find<DutyTemplate>(Id);
