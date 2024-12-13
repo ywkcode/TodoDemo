@@ -87,6 +87,7 @@ namespace Todo
             containerRegistry.RegisterForNavigation<OrderView,OrderViewModel>();
             containerRegistry.RegisterForNavigation<PlanView, PlanViewModel>();
             containerRegistry.RegisterForNavigation<TodayView, TodayViewModel>();
+            containerRegistry.RegisterForNavigation<OnDutyView, OnDutyViewModel>();
             containerRegistry.RegisterForNavigation<TemplateSettingView, TemplateSettingViewModel>();
             containerRegistry.RegisterForNavigation<TemplateView, TemplateViewModel>();
         }

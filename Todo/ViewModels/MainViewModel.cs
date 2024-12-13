@@ -89,7 +89,7 @@ namespace Todo.ViewModels
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模版配置", NameSpace = "TemplateView" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "班次设置", NameSpace = "OrderView" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "排班管理", NameSpace = "PlanView" });
-            MenuBars.Add(new MenuBar() { Icon = "ClipboardAccount", Title = "今日排班", NameSpace = "TodayView" });
+            MenuBars.Add(new MenuBar() { Icon = "ClipboardAccount", Title = "今日排班", NameSpace = "OnDutyView" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "系统设置", NameSpace = "SettingsView" });
         }
 

@@ -47,7 +47,7 @@ namespace Todo.ViewModels.Duty
                 dialogService.ShowWarningDialog($"请选择合适的控件完成模版", currentView);
                 return;
             }
-            this.SelectedItem.FieldValue = SelectedField;
+            this.SelectedItem.FieldName = SelectedField;
         }
 
         private void InitData()

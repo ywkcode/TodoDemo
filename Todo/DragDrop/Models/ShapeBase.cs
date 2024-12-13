@@ -130,7 +130,19 @@ namespace Todo.DragDrop.Models
                 SetProperty(ref baseContent, value);
             }
         }
+        private string fieldName;
 
+        public string FieldName
+        {
+            get
+            {
+                return fieldName;
+            }
+            set
+            {
+                SetProperty(ref fieldName, value);
+            }
+        }
         private string fieldValue;
 
         public string FieldValue
