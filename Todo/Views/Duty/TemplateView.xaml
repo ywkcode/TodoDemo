@@ -4,17 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:control="clr-namespace:Todo.DragDrop.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:Todo.Views.Duty"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="clr-namespace:Todo.DragDrop.Models"
     xmlns:prism="http://prismlibrary.com/"
-    Width="1200"
+    Width="1280"
     Height="700"
     d:DesignHeight="700"
     d:DesignWidth="1200"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="White"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -86,9 +88,9 @@
     <materialDesign:DialogHost Identifier="Template">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="900" />
-                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="190" />
             </Grid.ColumnDefinitions>
 
             <ListBox
@@ -348,10 +350,16 @@
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     Width="auto"
-                                    DataContext="{Binding FieldItems}"
-                                    DisplayMemberPath="Name"
-                                    SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                                    SelectedValuePath="Description" />
+                                    DisplayMemberPath="FieldName"
+                                    ItemsSource="{Binding FieldItems}"
+                                    SelectedValue="{Binding SelectedField, Mode=TwoWay}"
+                                    SelectedValuePath="FieldValue">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <prism:InvokeCommandAction Command="{Binding SelectionChangeCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
                             </DockPanel>
 
                         </Grid>

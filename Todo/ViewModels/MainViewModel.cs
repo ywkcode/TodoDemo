@@ -86,7 +86,7 @@ namespace Todo.ViewModels
         void CreateMenuBar()
         {
             MenuBars.Add(new MenuBar() { Icon = "Home", Title = "首页", NameSpace = "IndexView" });
-            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模版配置", NameSpace = "TemplateSettingView" });
+            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模版配置", NameSpace = "TemplateView" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "班次设置", NameSpace = "OrderView" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "排班管理", NameSpace = "PlanView" });
             MenuBars.Add(new MenuBar() { Icon = "ClipboardAccount", Title = "今日排班", NameSpace = "TodayView" });
@@ -99,10 +99,10 @@ namespace Todo.ViewModels
         public void Confiure()
         {
             CreateMenuBar();
-            //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
+             regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("OrderView");
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("PlanView");
-            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("ColorPickerView");
+            //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("ColorPickerView");
         }
     }
 }

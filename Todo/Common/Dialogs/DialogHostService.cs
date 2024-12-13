@@ -3,6 +3,7 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -65,6 +66,9 @@ namespace Todo.Common.Dialogs
 
         public async Task<IDialogResult> ShowSuccessDialog( string dialogHostName = "Root")
         {
+            var parameters = new DialogParameters();
+            parameters.Add("Content", "操作成功");
+            parameters.Add("Title", "消息提示");
             return await this.ShowDialog(DefaultConst.Default_MessageView, null, dialogHostName);
         }
 
@@ -72,7 +76,7 @@ namespace Todo.Common.Dialogs
         {
             var parameters = new DialogParameters();
             parameters.Add("Content", content);
-            parameters.Add("Title", "消息提示");
+            parameters.Add("Title", "消息提醒");
             return await this.ShowDialog(DefaultConst.Default_MessageView, parameters, dialogHostName);
         }
     }

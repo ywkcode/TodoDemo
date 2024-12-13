@@ -29,7 +29,7 @@ namespace Todo.ViewModels.Dialogs
             }
         }
 
-        public string DialogHostName { get; set; } = "Root";
+        public string DialogHostName { get; set; } = "Template";
         public DelegateCommand SaveCommand { get; set; }
         public DelegateCommand CancelCommand { get; set; }
 

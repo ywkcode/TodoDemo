@@ -43,13 +43,13 @@ namespace Todo.Views
                 this.Close();
             };
 
-            ColorZone.MouseMove += (s, e) =>
-            {
-                if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
-                {
-                    this.DragMove();
-                }
-            };
+            //ColorZone.MouseMove += (s, e) =>
+            //{
+            //    if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+            //    {
+            //        this.DragMove();
+            //    }
+            //};
             //双击事件
             ColorZone.MouseDoubleClick += (s, e) =>
             {

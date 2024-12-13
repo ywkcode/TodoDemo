@@ -81,6 +81,20 @@ namespace Todo.ViewModels.Dialogs
                 Type = parameters.GetValue<string>("Type"); 
         }
 
+        public bool CanCloseDialog()
+        {
+            return true;
+        }
+
+        public void OnDialogClosed()
+        {
+            
+        }
+
+        public void OnDialogOpened(IDialogParameters parameters)
+        {
+          
+        }
 
         public IEnumerable<ISwatch> Swatches { get; } = SwatchHelper.Swatches;
 

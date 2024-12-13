@@ -34,9 +34,22 @@ namespace Todo.ViewModels.Duty
             MouseDownCommand = new DelegateCommand(CanvasMouseDown);
             GetColorCommand = new DelegateCommand<string>(OpenColorPicker);
             ExecuteCommand = new DelegateCommand<string>(Excute);
-     
-            InitData();
+            SelectionChangeCommand = new DelegateCommand<object>(SelectionChange);
+
+
+           InitData();
         }
+
+        private void SelectionChange(object obj)
+        {
+            if (!Items.Any())
+            {
+                dialogService.ShowWarningDialog($"请选择合适的控件完成模版", currentView);
+                return;
+            }
+            this.SelectedItem.FieldValue = SelectedField;
+        }
+
         private void InitData()
         {
             var model = templateService.GetSingle(1);
@@ -47,20 +60,27 @@ namespace Todo.ViewModels.Duty
                 { 
                     Items.Add(data);
                 }
-            }
-
-            var fieldDic=new List<FieldModel>();
-            fieldDic.Add(new FieldModel() { FieldName="领导",FieldValue="Leader"});
+            } 
 
         }
 
-        public class FieldModel
+        public class FieldModel : BindableBase
         {
-            public string FieldName { get; set; }
+            private string _fieldName;
+            public string FieldName
+            {
+                get { return _fieldName; }
+                set { SetProperty(ref _fieldName, value); }
+            }
+
+            private string _fieldValue;
             public string FieldValue
             {
-                get; set;
+                get { return _fieldValue; }
+                set { SetProperty(ref _fieldValue, value); }
             }
+
+
         }
         private void Excute(string type)
         {
@@ -147,12 +167,27 @@ namespace Todo.ViewModels.Duty
             get { return _items; }
             set { SetProperty(ref _items, value); }
         }
-        public ObservableCollection<FieldModel> FieldItems { get; set; }
+
+
+        private ObservableCollection<FieldModel> fieldItems = new ObservableCollection<FieldModel>();
+        public ObservableCollection<FieldModel> FieldItems
+        {
+            get { return fieldItems; }
+            set { SetProperty(ref fieldItems, value); }
+        }
+        private string _selectedField;
+        public string SelectedField
+        {
+            get => _selectedField;
+            set => SetProperty(ref _selectedField, value);
+        } 
         public DelegateCommand MouseDownCommand { get; set; }
 
         public DelegateCommand<string> GetColorCommand { get; set; }
 
         public DelegateCommand<string> ExecuteCommand { get; set; }
+
+        public DelegateCommand<object> SelectionChangeCommand { get; set; }
 
         #endregion
         public bool CanCloseDialog()

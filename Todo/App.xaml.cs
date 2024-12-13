@@ -33,9 +33,8 @@ namespace Todo
         protected override void OnInitialized()
         {
             var dialog = Container.Resolve<IDialogService>();
-            //dialog.ShowDialog("LoginView", callback =>
-            dialog.ShowDialog("TemplateView", callback =>
-            //dialog.ShowDialog("ColorPickerView", callback =>
+            dialog.ShowDialog("LoginView", callback =>
+          
             {
                 if (callback.Result != ButtonResult.OK)
                 {

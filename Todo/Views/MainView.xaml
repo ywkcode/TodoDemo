@@ -27,8 +27,7 @@
     <materialDesign:DialogHost
         x:Name="DialogHost"
         DialogTheme="Inherit"
-        Identifier="Root"
-        SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+        Identifier="Root">
 
         <materialDesign:DrawerHost x:Name="ColorZone" IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <materialDesign:DrawerHost.LeftDrawerContent>
@@ -122,7 +121,7 @@
                             <Button
                                 Margin="16,0,0,0"
                                 materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"
-                                Command="{Binding GoForwandCommand}"
+                                Command="{Binding GoForwardCommand}"
                                 Content="{materialDesign:PackIcon Kind=ArrowRight,
                                                                   Size=24}"
                                 Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
