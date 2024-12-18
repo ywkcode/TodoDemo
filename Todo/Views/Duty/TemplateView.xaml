@@ -35,32 +35,100 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
 
-
-
         <DataTemplate DataType="{x:Type model:RectangleBase}">
             <Grid Width="{Binding Width}" Height="{Binding Height}">
                 <Grid
-                    x:Name="grid"
+                    x:Name="gridRect"
                     Panel.ZIndex="999"
                     Cursor="Hand">
                     <Rectangle
                         x:Name="cvrect"
                         Width="{Binding Width}"
                         Height="{Binding Height}"
-                        Fill="{Binding FillColor}"
-                        RadiusX="10"
-                        RadiusY="10" />
+                        Fill="{Binding FillColor}" />
                     <Label
                         HorizontalAlignment="Center"
                         Content="{Binding BaseContent}"
                         FontSize="{Binding FontSize}"
                         Foreground="{Binding FontColor}" />
                     <control:DragThumb PreviewMouseDown="Canvas_MouseLeftButtonDown" />
+                    <Grid Visibility="{Binding IsSelectd}">
+                        <Thumb
+                            Height="3"
+                            Margin="0,-4,0,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Background="LightGray"
+                            Cursor="SizeNS"
+                            DragDelta="Thumb_DragDelta_Resize" />
+                        <Thumb
+                            Width="3"
+                            Margin="-4,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Background="LightGray"
+                            Cursor="SizeWE"
+                            DragDelta="Thumb_DragDelta_Resize" />
+                        <Thumb
+                            Width="3"
+                            Margin="0,0,-4,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            Background="LightGray"
+                            Cursor="SizeWE"
+                            DragDelta="Thumb_DragDelta_Resize" />
+                        <Thumb
+                            Height="3"
+                            Margin="0,0,0,-4"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            Background="LightGray"
+                            Cursor="SizeNS"
+                            DragDelta="Thumb_DragDelta_Resize" />
+                        <Thumb
+                            Width="7"
+                            Height="7"
+                            Margin="-6,-6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Background="LightGray"
+                            Cursor="SizeNWSE"
+                            DragDelta="Thumb_DragDelta_Resize" />
+                        <Thumb
+                            Width="7"
+                            Height="7"
+                            Margin="0,-6,-6,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Background="LightGray"
+                            Cursor="SizeNESW"
+                            DragDelta="Thumb_DragDelta_Resize" />
+                        <Thumb
+                            Width="7"
+                            Height="7"
+                            Margin="-6,0,0,-6"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Background="LightGray"
+                            Cursor="SizeNESW"
+                            DragDelta="Thumb_DragDelta_Resize" />
+                        <Thumb
+                            Width="7"
+                            Height="7"
+                            Margin="0,0,-6,-6"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Background="LightGray"
+                            Cursor="SizeNWSE"
+                            DragDelta="Thumb_DragDelta_Resize" />
+                    </Grid>
+
+                    <!--<control:PortContainer />-->
                 </Grid>
             </Grid>
             <!--  增加边框线  -->
             <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding ElementName=grid, Path=IsMouseOver}" Value="true">
+                <DataTrigger Binding="{Binding ElementName=gridRect, Path=IsMouseOver}" Value="true">
                     <Setter TargetName="cvrect" Property="Stroke" Value="Blue" />
                     <Setter TargetName="cvrect" Property="StrokeThickness" Value="1" />
                 </DataTrigger>
@@ -129,19 +197,48 @@
             </ItemsControl>
 
             <!--  基础属性  -->
+
             <Border
                 Grid.Column="2"
                 Margin="0,3,10,3"
                 BorderBrush="LightGray"
                 BorderThickness="1">
                 <Grid>
+
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0">
-                        <Label Content="属性设置" Foreground="black" />
-                        <Border BorderBrush="LightGray" BorderThickness="0,0,0,0.9" />
+                    <StackPanel
+                        Grid.Row="0"
+                        Margin="4"
+                        Orientation="Horizontal">
+                        <RadioButton
+                            Margin="2"
+                            HorizontalAlignment="Center"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Command="{Binding RadioButtonCommand}"
+                            CommandParameter="true"
+                            Content="表单属性"
+                            IsChecked="{Binding IsShowForm}"
+                            Style="{StaticResource MaterialDesignTabRadioButton}" />
+                        <RadioButton
+                            Margin="2"
+                            HorizontalAlignment="Center"
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                            Command="{Binding RadioButtonCommand}"
+                            CommandParameter="false"
+                            Content="控件属性"
+                            IsChecked="{Binding IsShowControl}"
+                            Style="{StaticResource MaterialDesignTabRadioButton}" />
+
+                    </StackPanel>
+                    <StackPanel
+                        x:Name="stkControl"
+                        Grid.Row="1"
+                        Visibility="{Binding VisControl}">
+
                         <Grid Margin="5">
 
                             <Grid.RowDefinitions>
@@ -366,7 +463,26 @@
                         <Border BorderBrush="LightGray" BorderThickness="0,0,0,0.9" />
                     </StackPanel>
                     <StackPanel
+                        x:Name="stkForm"
                         Grid.Row="1"
+                        Visibility="{Binding VisForm}">
+                        <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <DockPanel Grid.Row="0">
+                                <Label Content="背景色:" Foreground="black" />
+                                <TextBox Foreground="black" Text="{Binding SelectedItem.BaseContent}" />
+                            </DockPanel>
+                            <DockPanel Grid.Row="1" Margin="0,10">
+                                <Label Content="背景图:" Foreground="black" />
+                                <TextBox Foreground="black" Text="{Binding SelectedItem.BaseContent}" />
+                            </DockPanel>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="2"
                         Margin="5"
                         VerticalAlignment="Bottom"
                         Orientation="Horizontal">

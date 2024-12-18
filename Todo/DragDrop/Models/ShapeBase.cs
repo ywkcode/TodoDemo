@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Todo.DragDrop.Models
 {
@@ -156,7 +158,10 @@ namespace Todo.DragDrop.Models
                 SetProperty(ref fieldValue, value);
             }
         }
+
+        
+       
     }
 
-  
+
 }

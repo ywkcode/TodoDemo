@@ -33,8 +33,8 @@ namespace Todo
         protected override void OnInitialized()
         {
             var dialog = Container.Resolve<IDialogService>();
-            dialog.ShowDialog("LoginView", callback =>
-          
+            //dialog.ShowDialog("LoginView", callback =>
+            dialog.ShowDialog("TemplateView", callback =>
             {
                 if (callback.Result != ButtonResult.OK)
                 {
@@ -73,6 +73,7 @@ namespace Todo
             containerRegistry.RegisterForNavigation<AddToDoView, AddToDoViewModel>();
             containerRegistry.RegisterForNavigation<MsgView, MsgViewModel>();
             containerRegistry.RegisterDialog<LoginView, LoginViewModel>();
+            containerRegistry.RegisterDialog<TemplateView, TemplateViewModel>();
 
             containerRegistry.RegisterForNavigation<MessageView, MessageViewModel>(); //消息提示框
             containerRegistry.RegisterForNavigation<ColorPickerView, ColorPickerViewModel>(); //取色器
@@ -89,7 +90,7 @@ namespace Todo
             containerRegistry.RegisterForNavigation<TodayView, TodayViewModel>();
             containerRegistry.RegisterForNavigation<OnDutyView, OnDutyViewModel>();
             containerRegistry.RegisterForNavigation<TemplateSettingView, TemplateSettingViewModel>();
-            containerRegistry.RegisterForNavigation<TemplateView, TemplateViewModel>();
+            //containerRegistry.RegisterForNavigation<TemplateView, TemplateViewModel>();
         }
 
         private DbContextOptions<ToDoDbContext> GetDbContextOptions()

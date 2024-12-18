@@ -28,8 +28,49 @@ namespace Todo.Views.Duty
            
             
         }
+        private void Thumb_DragDelta_Resize(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            Control thumb = sender as Control;
+            var selectItem = (RectangleBase)thumb.DataContext;
 
-    
+            if (selectItem != null)
+            {
+                double deltaVertical, deltaHorizontal;
+
+                switch (thumb.VerticalAlignment)
+                {
+                    case VerticalAlignment.Bottom:
+                        deltaVertical = Math.Min(-e.VerticalChange, selectItem.Height);
+                        selectItem.Height -= deltaVertical;
+                        break;
+                    case VerticalAlignment.Top:
+                        deltaVertical = Math.Min(e.VerticalChange, selectItem.Height);
+                        selectItem.Top = deltaVertical;
+                        selectItem.Height -= deltaVertical;
+                        break;
+                    default:
+                        break;
+                }
+                switch (thumb.HorizontalAlignment)
+                {
+                    case HorizontalAlignment.Left:
+                        deltaHorizontal = Math.Min(e.HorizontalChange, selectItem.Width  );
+                      
+                        selectItem.Width -= deltaHorizontal;
+                        break;
+                    case HorizontalAlignment.Right:
+                        deltaHorizontal = Math.Min(-e.HorizontalChange, selectItem.Width);
+                        selectItem.Width -= deltaHorizontal;
+                        break;
+                    default:
+                        break;
+                }
+                TemplateViewModel mainViewModel = this.DataContext as TemplateViewModel;
+                mainViewModel.SelectedItem = selectItem;
+            }
+            e.Handled = true;
+        }
+
 
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         

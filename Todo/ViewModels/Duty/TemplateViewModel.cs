@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using Prism.Dialogs;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
 using Todo.Common.Dialogs;
 using Todo.DragDrop.Models;
 using Todo.IService;
@@ -35,9 +37,32 @@ namespace Todo.ViewModels.Duty
             GetColorCommand = new DelegateCommand<string>(OpenColorPicker);
             ExecuteCommand = new DelegateCommand<string>(Excute);
             SelectionChangeCommand = new DelegateCommand<object>(SelectionChange);
+            RadioButtonCommand = new DelegateCommand<object>(RadioButtonChange);
+            IsShowForm = false;
+            IsShowControl = true;
+             VisForm = Visibility.Hidden;
+            VisControl = Visibility.Visible;
+           //InitData();
+        }
 
-
-           InitData();
+        private void RadioButtonChange(object obj)
+        {
+            switch (obj.ToString())
+            {
+                case "true":
+                    this.IsShowForm = true;
+                    this.IsShowControl = false; 
+                    VisForm=Visibility.Visible;
+                    VisControl = Visibility.Hidden;
+                    break;
+                case "false":
+                    this.IsShowForm =false ;
+                    this.IsShowControl = true;
+                    VisForm = Visibility.Hidden;
+                    VisControl = Visibility.Visible;
+                    break;
+            }
+          
         }
 
         private void SelectionChange(object obj)
@@ -192,7 +217,40 @@ namespace Todo.ViewModels.Duty
         {
             get => _selectedField;
             set => SetProperty(ref _selectedField, value);
-        } 
+        }
+
+        private bool _isShowForm;
+
+        public bool IsShowForm
+        {
+            get => _isShowForm;
+            set => SetProperty(ref _isShowForm, value);
+        }
+        private bool _isShowControl;
+
+        public bool IsShowControl
+        {
+            get => _isShowControl;
+            set => SetProperty(ref _isShowControl, value);
+        }
+        
+
+        private Visibility _visForm;
+
+        public Visibility VisForm
+        {
+            get => _visForm;
+            set => SetProperty(ref _visForm, value);
+        }
+        private Visibility _visControl;
+
+        public Visibility VisControl
+        {
+            get => _visControl;
+            set => SetProperty(ref _visControl, value);
+        }
+
+
         public DelegateCommand MouseDownCommand { get; set; }
 
         public DelegateCommand<string> GetColorCommand { get; set; }
@@ -200,6 +258,8 @@ namespace Todo.ViewModels.Duty
         public DelegateCommand<string> ExecuteCommand { get; set; }
 
         public DelegateCommand<object> SelectionChangeCommand { get; set; }
+
+        public DelegateCommand<object> RadioButtonCommand { get; set; }
 
         #endregion
         public bool CanCloseDialog()
