@@ -69,7 +69,7 @@ namespace Todo.Common.Dialogs
             var parameters = new DialogParameters();
             parameters.Add("Content", "操作成功");
             parameters.Add("Title", "消息提示");
-            return await this.ShowDialog(DefaultConst.Default_MessageView, null, dialogHostName);
+            return await this.ShowDialog(DefaultConst.Default_MessageView, parameters, dialogHostName);
         }
 
         public async Task<IDialogResult> ShowWarningDialog(string content,string dialogHostName = "Root")

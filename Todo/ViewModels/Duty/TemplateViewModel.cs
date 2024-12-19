@@ -52,14 +52,14 @@ namespace Todo.ViewModels.Duty
             switch (obj.ToString())
             {
                 case "true":
-                    this.IsShowForm = true;
-                    this.IsShowControl = false; 
+                    IsShowForm = true;
+                   IsShowControl = false; 
                     VisForm=Visibility.Visible;
                     VisControl = Visibility.Hidden;
                     break;
                 case "false":
-                    this.IsShowForm =false ;
-                    this.IsShowControl = true;
+                   IsShowForm =false ;
+                    IsShowControl = true;
                     VisForm = Visibility.Hidden;
                     VisControl = Visibility.Visible;
                     break;
@@ -116,17 +116,27 @@ namespace Todo.ViewModels.Duty
                 if (Items.Any())
                 {
                     var model = templateService.GetSingle(1);
-                    if (model?.Id > 0)
+                    var tempModel = new TemplateObject()
                     {
-                        model.Content = JsonConvert.SerializeObject(Items);
+                        TempFormProp = new FormProp()
+                        {
+                            Width = 1000,
+                            Height = 1000,
+                        },
+                        ShapeBases = Items.ToList()
+                    };
+                    if (model?.Id > 0)
+                    { 
+                        model.Content = JsonConvert.SerializeObject(tempModel);
                         templateService.UpDateTemplate(model);
 
                     }
                     else
                     {
+                       
                         templateService.SaveTemplate(new Entity.DutyTemplate()
                         {
-                            Content = JsonConvert.SerializeObject(Items)
+                            Content = JsonConvert.SerializeObject(tempModel)
                         });
                     } 
 

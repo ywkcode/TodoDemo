@@ -277,9 +277,11 @@
                                 Grid.Column="0"
                                 Content="宽度:"
                                 Foreground="black" />
+                      
                             <TextBox
                                 Grid.Row="1"
                                 Grid.Column="1"
+                               
                                 Foreground="black"
                                 Text="{Binding SelectedItem.Width, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
