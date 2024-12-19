@@ -16,6 +16,7 @@
     <None Remove="Images\login.png" />
     <None Remove="Images\user.jpg" />
     <None Remove="Images\wind.png" />
+    <None Remove="Views\Duty\111.png" />
   </ItemGroup>
 
   <ItemGroup>

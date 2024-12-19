@@ -9,6 +9,10 @@ namespace Todo.Base
     public  class DefaultConst
     {
         public const string Default_MessageView = "MessageView";
+
+        public const double Screen_Width = 1920;
+
+        public  const double Screen_Height = 1080;
     }
     
 }

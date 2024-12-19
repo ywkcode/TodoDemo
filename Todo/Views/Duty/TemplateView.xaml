@@ -174,28 +174,36 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
             </ListBox>
-            <ItemsControl
-                x:Name="listbox"
+
+            <Border
                 Grid.Column="1"
-                Margin="3"
+                Width="1000"
+                Height="800"
                 BorderBrush="LightGray"
-                BorderThickness="1"
-                ItemsSource="{Binding Items}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <control:DiagramCanvas AllowDrop="True" Background="Transparent" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                BorderThickness="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding MapImg}" Stretch="Fill" />
+                </Border.Background>
+                <ItemsControl
+                    x:Name="listbox"
+                    Margin="3"
+                    ItemsSource="{Binding Items}">
 
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="{x:Type ContentPresenter}">
-                        <Setter Property="Canvas.Left" Value="{Binding Left}" />
-                        <Setter Property="Canvas.Top" Value="{Binding Top}" />
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <control:DiagramCanvas AllowDrop="True" Background="Transparent" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-            </ItemsControl>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="{x:Type ContentPresenter}">
+                            <Setter Property="Canvas.Left" Value="{Binding Left}" />
+                            <Setter Property="Canvas.Top" Value="{Binding Top}" />
 
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                </ItemsControl>
+            </Border>
             <!--  基础属性  -->
 
             <Border
@@ -273,7 +281,7 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Foreground="black"
-                                Text="{Binding SelectedItem.Width}" />
+                                Text="{Binding SelectedItem.Width, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
                             <Label
                                 Grid.Row="2"
@@ -285,7 +293,7 @@
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 Foreground="black"
-                                Text="{Binding SelectedItem.Height}" />
+                                Text="{Binding SelectedItem.Height, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
 
                         </Grid>
@@ -311,7 +319,7 @@
                                     Grid.Column="1"
                                     Width="90"
                                     Foreground="black"
-                                    Text="{Binding SelectedItem.FontSize}" />
+                                    Text="{Binding SelectedItem.FontSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                             </DockPanel>
 
 
@@ -341,7 +349,7 @@
                                         </Button>
                                         <Label
                                             Width="auto"
-                                            Content="{Binding SelectedItem.FontColor}"
+                                            Content="{Binding SelectedItem.FontColor, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                             Foreground="black" />
                                     </DockPanel>
                                 </Grid>
@@ -432,7 +440,7 @@
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Foreground="black"
-                                    Text="{Binding SelectedItem.BaseContent}"
+                                    Text="{Binding SelectedItem.BaseContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </StackPanel>
                             <DockPanel Grid.Row="2">
@@ -477,7 +485,22 @@
                             </DockPanel>
                             <DockPanel Grid.Row="1" Margin="0,10">
                                 <Label Content="背景图:" Foreground="black" />
-                                <TextBox Foreground="black" Text="{Binding SelectedItem.BaseContent}" />
+                                <Button
+                                    Name="btnUpload"
+                                    Width="20"
+                                    Height="20"
+                                    Click="BtnUpload_Click"
+                                    Style="{StaticResource MaterialDesignFloatingActionButton}">
+                                    <materialDesign:PackIcon Kind="FileUploadOutline" />
+                                </Button>
+                                <Button
+                                    Name="btnRemove"
+                                    Width="20"
+                                    Height="20"
+                                    Click="BtnUpload_Click"
+                                    Style="{StaticResource MaterialDesignFloatingActionButton}">
+                                    <materialDesign:PackIcon Kind="CloseBoxOutline" />
+                                </Button>
                             </DockPanel>
                         </Grid>
                     </StackPanel>

@@ -4,6 +4,7 @@ using Prism.Dialogs;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using Todo.Common.Dialogs;
 using Todo.DragDrop.Models;
 using Todo.IService;
@@ -42,7 +43,8 @@ namespace Todo.ViewModels.Duty
             IsShowControl = true;
              VisForm = Visibility.Hidden;
             VisControl = Visibility.Visible;
-           //InitData();
+           // MapImg= new BitmapImage(new Uri("../Images/111.png", UriKind.Relative));
+            //InitData();
         }
 
         private void RadioButtonChange(object obj)
@@ -249,6 +251,13 @@ namespace Todo.ViewModels.Duty
             get => _visControl;
             set => SetProperty(ref _visControl, value);
         }
+        private BitmapImage _mapImg;
+
+        public BitmapImage MapImg
+        {
+            get => _mapImg;
+            set => SetProperty(ref _mapImg, value);
+        }
 
 
         public DelegateCommand MouseDownCommand { get; set; }
@@ -261,6 +270,8 @@ namespace Todo.ViewModels.Duty
 
         public DelegateCommand<object> RadioButtonCommand { get; set; }
 
+
+        
         #endregion
         public bool CanCloseDialog()
         {

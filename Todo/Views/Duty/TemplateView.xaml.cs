@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,7 +72,39 @@ namespace Todo.Views.Duty
             }
             e.Handled = true;
         }
+        private void BtnUpload_Click(object sender, RoutedEventArgs e)
+        {
+            // 创建一个打开文件对话框
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Select an Image",
+                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+            };
 
+           
+            bool? result = openFileDialog.ShowDialog();
+            if (result == true)
+            {
+                // 获取选中的文件路径
+                string filePath = openFileDialog.FileName;
+
+                // 创建一个BitmapImage对象并设置其UriSource
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(filePath, UriKind.Absolute);
+                bitmapImage.EndInit();
+
+                //优化文件夹名称
+                string savePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", System.IO.Path.GetFileName(filePath));
+                Directory.CreateDirectory(System.IO.Path.GetDirectoryName(savePath));
+                File.Copy(filePath, savePath, overwrite: true);
+
+                // 将BitmapImage设置为Image控件的Source
+                TemplateViewModel mainViewModel = this.DataContext as TemplateViewModel;
+                mainViewModel.MapImg = bitmapImage;
+                
+            }
+        }
 
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         
