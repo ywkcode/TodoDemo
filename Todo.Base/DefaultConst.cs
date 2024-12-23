@@ -13,6 +13,16 @@ namespace Todo.Base
         public const double Screen_Width = 1920;
 
         public  const double Screen_Height = 1080;
+
+        /// <summary>
+        /// 画布宽度
+        /// </summary>
+        public const double Form_Width = 1000;
+
+        /// <summary>
+        /// 画布高度
+        /// </summary>
+        public const double Form_Height = 800;
     }
     
 }

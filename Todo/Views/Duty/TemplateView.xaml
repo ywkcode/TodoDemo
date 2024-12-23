@@ -35,6 +35,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
 
+
         <DataTemplate DataType="{x:Type model:RectangleBase}">
             <Grid Width="{Binding Width}" Height="{Binding Height}">
                 <Grid
@@ -52,7 +53,8 @@
                         FontSize="{Binding FontSize}"
                         Foreground="{Binding FontColor}" />
                     <control:DragThumb PreviewMouseDown="Canvas_MouseLeftButtonDown" />
-                    <Grid Visibility="{Binding IsSelectd}">
+                    <!--<Grid Visibility="{Binding IsSelectd}">-->
+                    <Grid>
                         <Thumb
                             Height="3"
                             Margin="0,-4,0,0"
@@ -121,6 +123,18 @@
                             Background="LightGray"
                             Cursor="SizeNWSE"
                             DragDelta="Thumb_DragDelta_Resize" />
+                        <Button
+                            Width="30"
+                            Height="20"
+                            Margin="0"
+                            Padding="0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Background="White"
+                            Click="BtnRemove_Click"
+                            Content="删除"
+                            FontSize="12"
+                            Foreground="Black" />
                     </Grid>
 
                     <!--<control:PortContainer />-->
@@ -178,15 +192,17 @@
             <Border
                 Grid.Column="1"
                 Width="1000"
-                Height="800"
+                Height="798"
                 BorderBrush="LightGray"
                 BorderThickness="1">
                 <Border.Background>
+
                     <ImageBrush ImageSource="{Binding MapImg}" Stretch="Fill" />
+
                 </Border.Background>
                 <ItemsControl
                     x:Name="listbox"
-                    Margin="3"
+                    Background="{Binding FormProp.BgColor}"
                     ItemsSource="{Binding Items}">
 
                     <ItemsControl.ItemsPanel>
@@ -277,11 +293,10 @@
                                 Grid.Column="0"
                                 Content="宽度:"
                                 Foreground="black" />
-                      
+
                             <TextBox
                                 Grid.Row="1"
                                 Grid.Column="1"
-                               
                                 Foreground="black"
                                 Text="{Binding SelectedItem.Width, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
@@ -480,13 +495,29 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <DockPanel Grid.Row="0">
                                 <Label Content="背景色:" Foreground="black" />
-                                <TextBox Foreground="black" Text="{Binding SelectedItem.BaseContent}" />
+                                <Button
+                                    Width="20"
+                                    Height="20"
+                                    Command="{Binding GetColorCommand}"
+                                    CommandParameter="BgColor"
+                                    Style="{StaticResource MaterialDesignFloatingActionButton}">
+                                    <materialDesign:PackIcon Kind="EyedropperVariant" />
+                                </Button>
+
+                                <Label
+                                    Width="auto"
+                                    Content="{Binding FormProp.BgColor}"
+                                    Foreground="black" />
+
                             </DockPanel>
                             <DockPanel Grid.Row="1" Margin="0,10">
                                 <Label Content="背景图:" Foreground="black" />
+                                <!--  背景图上传  -->
                                 <Button
                                     Name="btnUpload"
                                     Width="20"
@@ -495,14 +526,25 @@
                                     Style="{StaticResource MaterialDesignFloatingActionButton}">
                                     <materialDesign:PackIcon Kind="FileUploadOutline" />
                                 </Button>
+                                <TextBlock Width="80" Text="{Binding FormProp.BgImgName}" />
+                                <!--  背景图删除  -->
                                 <Button
                                     Name="btnRemove"
                                     Width="20"
                                     Height="20"
-                                    Click="BtnUpload_Click"
-                                    Style="{StaticResource MaterialDesignFloatingActionButton}">
+                                    Command="{Binding RemoveBgCommand}"
+                                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                    Visibility="{Binding BtnRemoveVisiable}">
                                     <materialDesign:PackIcon Kind="CloseBoxOutline" />
                                 </Button>
+                            </DockPanel>
+                            <DockPanel Grid.Row="2" Margin="0,10">
+                                <Label Content="宽度:" Foreground="black" />
+                                <TextBox Foreground="black" Text="{Binding FormProp.Width}" />
+                            </DockPanel>
+                            <DockPanel Grid.Row="3" Margin="0,10">
+                                <Label Content="高度:" Foreground="black" />
+                                <TextBox Foreground="black" Text="{Binding FormProp.Height}" />
                             </DockPanel>
                         </Grid>
                     </StackPanel>

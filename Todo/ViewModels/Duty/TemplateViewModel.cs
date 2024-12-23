@@ -1,10 +1,12 @@
 ﻿using DryIoc;
+using DryIoc.ImTools;
 using Newtonsoft.Json;
 using Prism.Dialogs;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Todo.Base;
 using Todo.Common.Dialogs;
 using Todo.DragDrop.Models;
 using Todo.IService;
@@ -39,12 +41,51 @@ namespace Todo.ViewModels.Duty
             ExecuteCommand = new DelegateCommand<string>(Excute);
             SelectionChangeCommand = new DelegateCommand<object>(SelectionChange);
             RadioButtonCommand = new DelegateCommand<object>(RadioButtonChange);
+            RemoveBgCommand = new DelegateCommand<object>(RemoveBg);
+            RemoveControlCommand = new DelegateCommand<object>(RemoveControl);
             IsShowForm = false;
             IsShowControl = true;
              VisForm = Visibility.Hidden;
             VisControl = Visibility.Visible;
+            BtnRemoveVisiable = Visibility.Hidden;
+            FormProp = new FormProp()
+            {
+                Width=1920,
+                Height=1080,
+                BgColor= ""
+            };
            // MapImg= new BitmapImage(new Uri("../Images/111.png", UriKind.Relative));
             //InitData();
+        }
+        /// <summary>
+        /// 控件删除
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private async void RemoveControl(object objId)
+        {
+            var dialogResult = await dialogService.ShowWarningDialog($"是否删除控件?", currentView);
+            if (dialogResult.Result is ButtonResult.OK)
+            {
+                var removeMol = Items.FindFirst(s => s.Id == objId.ToString());
+                if (removeMol != null)
+                {
+                    Items.Remove(removeMol);
+                }
+            } 
+        }
+
+        private async void RemoveBg(object obj)
+        {
+            var dialogResult = await dialogService.ShowWarningDialog($"是否删除?",currentView);
+            if (dialogResult.Result is ButtonResult.OK)
+            {
+                FormProp.BgImgName = "";
+                FormProp.BgImgUrl = "";
+                BtnRemoveVisiable = Visibility.Hidden;
+                MapImg = null;
+            } 
+         
         }
 
         private void RadioButtonChange(object obj)
@@ -111,6 +152,7 @@ namespace Todo.ViewModels.Duty
         }
         private void Excute(string type)
         {
+            //新增或保存
             if (type == "Save")
             {
                 if (Items.Any())
@@ -118,11 +160,7 @@ namespace Todo.ViewModels.Duty
                     var model = templateService.GetSingle(1);
                     var tempModel = new TemplateObject()
                     {
-                        TempFormProp = new FormProp()
-                        {
-                            Width = 1000,
-                            Height = 1000,
-                        },
+                        TempFormProp = FormProp,
                         ShapeBases = Items.ToList()
                     };
                     if (model?.Id > 0)
@@ -156,7 +194,8 @@ namespace Todo.ViewModels.Duty
         /// <param name="colorType"></param>
         private async void OpenColorPicker(string colorType)
         {
-            if (SelectedItem.Id is null)
+              
+            if (SelectedItem.Id is null && colorType!= "BgColor")
             {
                 await dialogService.ShowWarningDialog("请先选择控件!", currentView);
                 return;
@@ -174,6 +213,15 @@ namespace Todo.ViewModels.Duty
                 if (dialogResult.Parameters["Type"]?.ToString() == "FontColor")
                 {
                     this.SelectedItem.FontColor = dialogResult.Parameters["Value"]?.ToString() ?? "";
+                }
+
+                if (dialogResult.Parameters["Type"]?.ToString() == "BgColor")
+                {
+                    this.FormProp.BgColor = dialogResult.Parameters["Value"]?.ToString() ?? "";
+                    FormProp.BgImgUrl = "";
+                    FormProp.BgImgName = "";
+                    BtnRemoveVisiable = Visibility.Hidden;
+                    MapImg = null;
                 }
             }
             
@@ -261,12 +309,30 @@ namespace Todo.ViewModels.Duty
             get => _visControl;
             set => SetProperty(ref _visControl, value);
         }
+        private Visibility _btnRemoveVisiable;
+
+        public Visibility BtnRemoveVisiable
+        {
+            get { return _btnRemoveVisiable; }
+            set => SetProperty(ref _btnRemoveVisiable, value);
+        }
+
+        
         private BitmapImage _mapImg;
 
         public BitmapImage MapImg
         {
             get => _mapImg;
             set => SetProperty(ref _mapImg, value);
+        }
+
+        //表单属性
+        private FormProp _formProp;
+
+        public FormProp FormProp
+        {
+            get { return _formProp; }
+            set => SetProperty(ref _formProp, value);
         }
 
 
@@ -280,8 +346,9 @@ namespace Todo.ViewModels.Duty
 
         public DelegateCommand<object> RadioButtonCommand { get; set; }
 
+        public DelegateCommand<Object> RemoveBgCommand { get; set; }
 
-        
+        public DelegateCommand<Object> RemoveControlCommand { get; set; }
         #endregion
         public bool CanCloseDialog()
         {

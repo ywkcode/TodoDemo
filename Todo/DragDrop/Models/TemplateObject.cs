@@ -30,6 +30,9 @@ namespace Todo.DragDrop.Models
 
     }
 
+    /// <summary>
+    /// 模版表单属性
+    /// </summary>
     public class FormProp:BindableBase
     {
         /// <summary>

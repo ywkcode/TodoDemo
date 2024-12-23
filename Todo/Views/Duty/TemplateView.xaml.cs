@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using DryIoc;
+using Microsoft.Win32;
+using Prism.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Todo.Common.Dialogs;
 using Todo.DragDrop.Models;
 using Todo.ViewModels.Duty;
 
@@ -24,11 +27,11 @@ namespace Todo.Views.Duty
     /// </summary>
     public partial class TemplateView : UserControl
     {
-        public TemplateView()
+        private readonly IDialogHostService dialogService;
+        public TemplateView(IDialogHostService dialogHostServiceArg)
         {
             InitializeComponent();
-           
-            
+            dialogService = dialogHostServiceArg; 
         }
         private void Thumb_DragDelta_Resize(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
         {
@@ -74,7 +77,7 @@ namespace Todo.Views.Duty
         }
         private void BtnUpload_Click(object sender, RoutedEventArgs e)
         {
-            // 创建一个打开文件对话框
+           
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Title = "Select an Image",
@@ -95,17 +98,21 @@ namespace Todo.Views.Duty
                 bitmapImage.EndInit();
 
                 //优化文件夹名称
-                string savePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", System.IO.Path.GetFileName(filePath));
+                var fileName = $"{DateTime.Now.ToString("ddHHmmss")}_{System.IO.Path.GetFileName(filePath)}";
+                var savePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", fileName);
                 Directory.CreateDirectory(System.IO.Path.GetDirectoryName(savePath));
                 File.Copy(filePath, savePath, overwrite: true);
 
                 // 将BitmapImage设置为Image控件的Source
                 TemplateViewModel mainViewModel = this.DataContext as TemplateViewModel;
                 mainViewModel.MapImg = bitmapImage;
-                
+                mainViewModel.FormProp.BgImgName = fileName;
+                mainViewModel.FormProp.BgImgUrl = savePath;
+               mainViewModel.BtnRemoveVisiable = Visibility.Visible;
             }
         }
 
+ 
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         
         {
@@ -118,5 +125,21 @@ namespace Todo.Views.Duty
                 mainViewModel.SelectedItem = selectItem;
             }
         }
+        private async void BtnRemove_Click(object sender, RoutedEventArgs e)
+
+        { 
+            var dialogResult= await dialogService.ShowWarningDialog($"是否删除控件?", "Template");
+            if (dialogResult.Result is ButtonResult.OK)
+            {
+                var selectItem = (RectangleBase)(((System.Windows.FrameworkElement)e.Source).DataContext);
+                if (selectItem != null)
+                {
+                    TemplateViewModel mainViewModel = this.DataContext as TemplateViewModel;
+                    mainViewModel.Items.Remove(selectItem);
+                }
+            }
+                
+        }
+        
     }
 }
