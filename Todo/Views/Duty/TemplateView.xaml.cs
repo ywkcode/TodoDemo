@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -137,9 +138,24 @@ namespace Todo.Views.Duty
                     TemplateViewModel mainViewModel = this.DataContext as TemplateViewModel;
                     mainViewModel.Items.Remove(selectItem);
                 }
-            }
-                
+            }    
         }
-        
+        private void FontSizeTxt_TextChanged(object sender,TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                string text = textBox.Text;
+                string result = Regex.Replace(text, "[^0-9]", ""); // 移除非数字字符
+                if (textBox.Text != result)
+                {
+                    textBox.Text = result;
+                    // 设置光标位置在文本末尾
+                    textBox.CaretIndex = textBox.Text.Length;
+                }
+            }
+        }
+
+
     }
 }

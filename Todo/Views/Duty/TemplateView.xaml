@@ -336,7 +336,8 @@
                                     Grid.Column="1"
                                     Width="90"
                                     Foreground="black"
-                                    Text="{Binding SelectedItem.FontSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                    Text="{Binding SelectedItem.FontSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    TextChanged="FontSizeTxt_TextChanged" />
                             </DockPanel>
 
 
