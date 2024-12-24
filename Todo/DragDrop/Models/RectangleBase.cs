@@ -15,5 +15,18 @@ namespace Todo.DragDrop.Models
     }
     public class RectangleBaseToolItem : RectangleBase
     {
+        private string _displayName;
+        public string DisplayName
+        {
+            get { return _displayName; }
+            set { SetProperty(ref _displayName, value); }
+        }
+
+        private string _displayColor;
+        public string DisplayColor
+        {
+            get { return _displayColor; }
+            set { SetProperty(ref _displayColor, value); }
+        }
     }
 }

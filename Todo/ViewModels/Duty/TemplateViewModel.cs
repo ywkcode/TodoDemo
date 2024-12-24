@@ -10,6 +10,7 @@ using Todo.Base;
 using Todo.Common.Dialogs;
 using Todo.DragDrop.Models;
 using Todo.IService;
+using Todo.Service;
 
 namespace Todo.ViewModels.Duty
 {
@@ -17,25 +18,38 @@ namespace Todo.ViewModels.Duty
     {
         private readonly IDialogHostService dialogService;
         private readonly IDutyTemplateService templateService;
+        private readonly IDynamicFieldService dynamicFieldService;
         private readonly string currentView = "Template";
-        public TemplateViewModel(IDialogHostService dialogHostServiceArg,IDutyTemplateService templateServiceArg)
+        public TemplateViewModel(IDialogHostService dialogHostServiceArg, IDutyTemplateService templateServiceArg, IDynamicFieldService dynamicFieldServiceArg)
         {
-            templateService=templateServiceArg;
+            templateService = templateServiceArg;
             dialogService = dialogHostServiceArg;
+            dynamicFieldService = dynamicFieldServiceArg;
+
+            var fields = dynamicFieldService.GetDataLists();
 
             ToolItems = new ObservableCollection<ShapeBase>()
-               {
-                   new RectangleBaseToolItem(){Width=100,Height=40},
-                     new RectangleBaseToolItem(){Width=100,Height=40},
-                       new RectangleBaseToolItem(){Width=100,Height=40}
-               };
-            FieldItems = new ObservableCollection<FieldModel>()
             {
-                new FieldModel(){FieldName="领导",FieldValue="Leader"},
-                 new FieldModel(){FieldName="领导电话",FieldValue="LeaderTel"},
-                  new FieldModel(){FieldName="值班人员",FieldValue="Dutyer"},
-                   new FieldModel(){FieldName="值班人员电话",FieldValue="DutyerTel"}
+                new RectangleBaseToolItem(){Width=100,Height=40,DisplayName="文本",DisplayColor="LightGray"},
+
             };
+            FieldItems = new ObservableCollection<FieldModel>() { }; //绑定字段
+            foreach (var fieldMol in fields)
+            {
+                ToolItems.Add(new RectangleBaseToolItem()
+                {
+                    Width = 100,
+                    Height = 40,
+                    DisplayName = fieldMol.Field_Ch??"",
+                    DisplayColor=fieldMol.Field_Color ?? ""
+                });
+                FieldItems.Add(new FieldModel()
+                {
+                    FieldName = fieldMol.Field_Ch ?? "",
+                    FieldValue = fieldMol.Field_En ?? "",
+                });
+            }
+             
             MouseDownCommand = new DelegateCommand(CanvasMouseDown);
             GetColorCommand = new DelegateCommand<string>(OpenColorPicker);
             ExecuteCommand = new DelegateCommand<string>(Excute);
@@ -45,16 +59,16 @@ namespace Todo.ViewModels.Duty
             RemoveControlCommand = new DelegateCommand<object>(RemoveControl);
             IsShowForm = false;
             IsShowControl = true;
-             VisForm = Visibility.Hidden;
+            VisForm = Visibility.Hidden;
             VisControl = Visibility.Visible;
             BtnRemoveVisiable = Visibility.Hidden;
             FormProp = new FormProp()
             {
-                Width=1920,
-                Height=1080,
-                BgColor= ""
+                Width = 1920,
+                Height = 1080,
+                BgColor = ""
             };
-           // MapImg= new BitmapImage(new Uri("../Images/111.png", UriKind.Relative));
+            // MapImg= new BitmapImage(new Uri("../Images/111.png", UriKind.Relative));
             //InitData();
         }
         /// <summary>
@@ -72,20 +86,20 @@ namespace Todo.ViewModels.Duty
                 {
                     Items.Remove(removeMol);
                 }
-            } 
+            }
         }
 
         private async void RemoveBg(object obj)
         {
-            var dialogResult = await dialogService.ShowWarningDialog($"是否删除?",currentView);
+            var dialogResult = await dialogService.ShowWarningDialog($"是否删除?", currentView);
             if (dialogResult.Result is ButtonResult.OK)
             {
                 FormProp.BgImgName = "";
                 FormProp.BgImgUrl = "";
                 BtnRemoveVisiable = Visibility.Hidden;
                 MapImg = null;
-            } 
-         
+            }
+
         }
 
         private void RadioButtonChange(object obj)
@@ -94,18 +108,18 @@ namespace Todo.ViewModels.Duty
             {
                 case "true":
                     IsShowForm = true;
-                   IsShowControl = false; 
-                    VisForm=Visibility.Visible;
+                    IsShowControl = false;
+                    VisForm = Visibility.Visible;
                     VisControl = Visibility.Hidden;
                     break;
                 case "false":
-                   IsShowForm =false ;
+                    IsShowForm = false;
                     IsShowControl = true;
                     VisForm = Visibility.Hidden;
                     VisControl = Visibility.Visible;
                     break;
             }
-          
+
         }
 
         private void SelectionChange(object obj)
@@ -125,10 +139,10 @@ namespace Todo.ViewModels.Duty
             {
                 var datas = JsonConvert.DeserializeObject<List<RectangleBase>>(model.Content);
                 foreach (var data in datas)
-                { 
+                {
                     Items.Add(data);
                 }
-            } 
+            }
 
         }
 
@@ -164,26 +178,26 @@ namespace Todo.ViewModels.Duty
                         ShapeBases = Items.ToList()
                     };
                     if (model?.Id > 0)
-                    { 
+                    {
                         model.Content = JsonConvert.SerializeObject(tempModel);
                         templateService.UpDateTemplate(model);
 
                     }
                     else
                     {
-                       
+
                         templateService.SaveTemplate(new Entity.DutyTemplate()
                         {
                             Content = JsonConvert.SerializeObject(tempModel)
                         });
-                    } 
+                    }
 
-                  
+
                     dialogService.ShowSuccessDialog(currentView);
-                } 
-               else
+                }
+                else
                 {
-                    dialogService.ShowWarningDialog($"请选择合适的控件完成模版",currentView);
+                    dialogService.ShowWarningDialog($"请选择合适的控件完成模版", currentView);
                 }
             }
         }
@@ -194,15 +208,15 @@ namespace Todo.ViewModels.Duty
         /// <param name="colorType"></param>
         private async void OpenColorPicker(string colorType)
         {
-              
-            if (SelectedItem.Id is null && colorType!= "BgColor")
+
+            if (SelectedItem.Id is null && colorType != "BgColor")
             {
                 await dialogService.ShowWarningDialog("请先选择控件!", currentView);
                 return;
             }
             var parameters = new DialogParameters();
             parameters.Add("Type", colorType);
-             var dialogResult = await dialogService.ShowDialog("ColorPickerView", parameters, currentView);
+            var dialogResult = await dialogService.ShowDialog("ColorPickerView", parameters, currentView);
 
             if (dialogResult.Result is ButtonResult.OK)
             {
@@ -224,12 +238,12 @@ namespace Todo.ViewModels.Duty
                     MapImg = null;
                 }
             }
-            
+
         }
 
         private void CanvasMouseDown()
         {
-             
+
         }
 
         public DialogCloseListener RequestClose { get; set; }
@@ -251,7 +265,7 @@ namespace Todo.ViewModels.Duty
         }
 
 
-        private ShapeBase _selectedItem =new ShapeBase();
+        private ShapeBase _selectedItem = new ShapeBase();
         public ShapeBase SelectedItem
         {
             get { return _selectedItem; }
@@ -293,7 +307,7 @@ namespace Todo.ViewModels.Duty
             get => _isShowControl;
             set => SetProperty(ref _isShowControl, value);
         }
-        
+
 
         private Visibility _visForm;
 
@@ -317,7 +331,7 @@ namespace Todo.ViewModels.Duty
             set => SetProperty(ref _btnRemoveVisiable, value);
         }
 
-        
+
         private BitmapImage _mapImg;
 
         public BitmapImage MapImg

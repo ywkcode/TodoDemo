@@ -42,21 +42,22 @@ namespace Todo.DragDrop.Controls
             if (e.LeftButton != MouseButtonState.Pressed)
                 rubberbandSelectionStartPoint = null;
 
+            //这里是空白处移动 显示控件
             // ... but if mouse button is pressed and start
             // point value is set we do have one
-            if (this.rubberbandSelectionStartPoint.HasValue)
-            {
-                // create rubberband adorner
-                AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
-                if (adornerLayer != null)
-                {
-                    DrawAdorner adorner = new DrawAdorner(this, rubberbandSelectionStartPoint);
-                    if (adorner != null)
-                    {
-                        adornerLayer.Add(adorner);
-                    }
-                }
-            }
+            //if (this.rubberbandSelectionStartPoint.HasValue)
+            //{
+            //    // create rubberband adorner
+            //    AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
+            //    if (adornerLayer != null)
+            //    {
+            //        DrawAdorner adorner = new DrawAdorner(this, rubberbandSelectionStartPoint);
+            //        if (adorner != null)
+            //        {
+            //            adornerLayer.Add(adorner);
+            //        }
+            //    }
+            //}
         }
 
         protected override void OnDragOver(DragEventArgs e)

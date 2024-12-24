@@ -30,5 +30,7 @@ namespace Todo.Entity
         public virtual DbSet<DutyPlan> DutyPlan { get; set; }
 
         public virtual DbSet<DutyTemplate> DutyTemplate { get; set; }
+
+        public virtual DbSet<DynamicField> DynamicField { get; set; }
     }
 }
