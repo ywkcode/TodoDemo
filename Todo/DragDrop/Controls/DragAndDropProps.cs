@@ -75,14 +75,21 @@ namespace Todo.DragDrop.Controls
             if (dragStartPoint == point)
                 return;
 
-            if (dragStartPoint.HasValue && ((FrameworkElement)sender).DataContext is ShapeBase toolBoxData)
+            if (dragStartPoint.HasValue && ((FrameworkElement)sender).DataContext is RectangleBaseToolItem toolBoxData)
             {
                 DragObject dataObject = new DragObject();
 
                 string type = toolBoxData.GetType().FullName.Replace("ToolItem", "");
                 dataObject.ShapeBase = Activator.CreateInstance(Type.GetType(type)) as ShapeBase;
-
-               
+                dataObject.ShapeBase.FillColor = toolBoxData.DisplayColor; //控件背景色
+                dataObject.ShapeBase.FieldName = toolBoxData.FieldName;//动态字段
+                dataObject.ShapeBase.FieldValue = toolBoxData.FieldValue;
+                dataObject.ShapeBase.BaseType = toolBoxData.BaseType; //控件类型
+                if (toolBoxData.DisplayName == "日期")
+                {
+                    dataObject.ShapeBase.BaseContent = DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss");
+                   
+                }
 
                 System.Windows.DragDrop.DoDragDrop((DependencyObject)sender, dataObject, DragDropEffects.Copy);
                 e.Handled = true;

@@ -459,18 +459,27 @@
                                 <TextBox
                                     Grid.Row="1"
                                     Grid.Column="1"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1"
                                     Foreground="black"
                                     Text="{Binding SelectedItem.BaseContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </StackPanel>
-                            <DockPanel Grid.Row="2">
+                            <DockPanel Grid.Row="2" Visibility="{Binding IsShowFieldName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                 <Label
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     Content="绑定字段:"
+                                    DockPanel.Dock="Left"
                                     Foreground="black" />
-
-                                <ComboBox
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Margin="0,3,0,0"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    Text="{Binding SelectedItem.FieldName}" />
+                                <!--<ComboBox
                                     x:Name="cmbox"
                                     Grid.Row="2"
                                     Grid.Column="1"
@@ -484,9 +493,30 @@
                                             <prism:InvokeCommandAction Command="{Binding SelectionChangeCommand}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
+                                </ComboBox>-->
+                            </DockPanel>
+                            <DockPanel Grid.Row="2" Visibility="{Binding IsDateTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Content="显示格式:"
+                                    Foreground="black" />
+                                <ComboBox
+                                    x:Name="cmbox"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Width="auto"
+                                    DisplayMemberPath="FieldName"
+                                    ItemsSource="{Binding DtFormats}"
+                                    SelectedValue="{Binding SelectedField, Mode=TwoWay}"
+                                    SelectedValuePath="FieldValue">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <prism:InvokeCommandAction Command="{Binding DtFormatsChangeCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </ComboBox>
                             </DockPanel>
-
                         </Grid>
                         <Border BorderBrush="LightGray" BorderThickness="0,0,0,0.9" />
                     </StackPanel>

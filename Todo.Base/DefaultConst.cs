@@ -23,6 +23,19 @@ namespace Todo.Base
         /// 画布高度
         /// </summary>
         public const double Form_Height = 800;
+
+        public const string ConstDtFormats = "yyyy年MM月dd日 HH:mm:ss;yyyy-MM-dd HH:mm:ss;yyyy-MM-dd";
+
+        /// <summary>
+        /// 控件类型-文本
+        /// </summary>
+        public const string BaseType_Label = "LABEL";
+
+
+        /// <summary>
+        /// 控件类型-日期
+        /// </summary>
+        public const string BaseType_DateTime = "DATETIME";
     }
     
 }

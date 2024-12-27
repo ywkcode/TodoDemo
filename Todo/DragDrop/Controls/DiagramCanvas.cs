@@ -79,14 +79,29 @@ namespace Todo.DragDrop.Controls
 
                 TemplateViewModel mainViewModel = this.DataContext as TemplateViewModel;
                 var lineBase = Activator.CreateInstance(dragObject.ShapeBase.GetType()) as ShapeBase;
+
+               
                 lineBase.Left = position.X;
                 lineBase.Top = position.Y;
                 lineBase.Width = 100;
                 lineBase.Height = 40;
                 lineBase.FillColor = "LightGray";
+                lineBase.FieldName = dragObject.ShapeBase.FieldName;
+                lineBase.FieldValue= dragObject.ShapeBase.FieldValue;
+                lineBase.BaseType = dragObject.ShapeBase.BaseType;
+                if (!string.IsNullOrEmpty(dragObject.ShapeBase.FillColor))
+                {
+                    lineBase.FillColor = dragObject.ShapeBase.FillColor;
+                }
                 lineBase.FontColor = "black";
                 lineBase.FontSize = "16";
                 lineBase.Id = Guid.NewGuid().ToString();
+
+                if (!string.IsNullOrEmpty(dragObject.ShapeBase.BaseContent))
+                {
+                    lineBase.BaseContent = dragObject.ShapeBase.BaseContent ?? "";
+                    lineBase.Width = 300;
+                }
                 mainViewModel.Items.Add(lineBase);  
             }
 

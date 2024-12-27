@@ -159,8 +159,28 @@ namespace Todo.DragDrop.Models
             }
         }
 
-        
-       
+        /// <summary>
+        /// 显示格式
+        /// </summary>
+        private string _dtFormmat;
+
+        public string DtFormat
+        {
+            get { return _dtFormmat; }
+            set { SetProperty(ref _dtFormmat, value); }
+        }
+
+
+        //控件类型
+        private string _baseType;
+
+        public string BaseType
+        {
+            get { return _baseType; }
+            set { SetProperty(ref _baseType, value); }
+        }
+
+
     }
 
 

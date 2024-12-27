@@ -3,6 +3,7 @@ using DryIoc.ImTools;
 using Newtonsoft.Json;
 using Prism.Dialogs;
 using System.Collections.ObjectModel;
+using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -30,8 +31,8 @@ namespace Todo.ViewModels.Duty
 
             ToolItems = new ObservableCollection<ShapeBase>()
             {
-                new RectangleBaseToolItem(){Width=100,Height=40,DisplayName="文本",DisplayColor="LightGray"},
-
+                new RectangleBaseToolItem(){Width=100,Height=40,DisplayName="文本",DisplayColor="LightGray",BaseType=DefaultConst.BaseType_Label},
+                 new RectangleBaseToolItem(){Width=100,Height=40,DisplayName="日期",DisplayColor="LightBlue",BaseType=DefaultConst.BaseType_DateTime},
             };
             FieldItems = new ObservableCollection<FieldModel>() { }; //绑定字段
             foreach (var fieldMol in fields)
@@ -41,7 +42,9 @@ namespace Todo.ViewModels.Duty
                     Width = 100,
                     Height = 40,
                     DisplayName = fieldMol.Field_Ch??"",
-                    DisplayColor=fieldMol.Field_Color ?? ""
+                    FieldName= fieldMol.Field_Ch ?? "",
+                    FieldValue=fieldMol.Field_En??"",
+                    DisplayColor =fieldMol.Field_Color ?? ""
                 });
                 FieldItems.Add(new FieldModel()
                 {
@@ -49,11 +52,21 @@ namespace Todo.ViewModels.Duty
                     FieldValue = fieldMol.Field_En ?? "",
                 });
             }
+            foreach (var selectMol in DefaultConst.ConstDtFormats.Split(';'))
+            {
+                DtFormats.Add(new FieldModel()
+                {
+                    FieldName = selectMol,
+                    FieldValue = selectMol
+                });
+            }
              
             MouseDownCommand = new DelegateCommand(CanvasMouseDown);
             GetColorCommand = new DelegateCommand<string>(OpenColorPicker);
             ExecuteCommand = new DelegateCommand<string>(Excute);
             SelectionChangeCommand = new DelegateCommand<object>(SelectionChange);
+            DtFormatsChangeCommand = new DelegateCommand<object>(DtFormatsChange);
+
             RadioButtonCommand = new DelegateCommand<object>(RadioButtonChange);
             RemoveBgCommand = new DelegateCommand<object>(RemoveBg);
             RemoveControlCommand = new DelegateCommand<object>(RemoveControl);
@@ -129,7 +142,18 @@ namespace Todo.ViewModels.Duty
                 dialogService.ShowWarningDialog($"请选择合适的控件完成模版", currentView);
                 return;
             }
-            this.SelectedItem.FieldName = SelectedField;
+            SelectedItem.FieldName = SelectedField;
+        }
+
+        private void DtFormatsChange(object obj)
+        {
+            if (!Items.Any())
+            {
+                dialogService.ShowWarningDialog($"请选择合适的控件完成模版", currentView);
+                return;
+            }
+            SelectedItem.DtFormat = SelectedField;
+            SelectedItem.BaseContent = DateTime.Now.ToString(SelectedField);
         }
 
         private void InitData()
@@ -160,10 +184,11 @@ namespace Todo.ViewModels.Duty
             {
                 get { return _fieldValue; }
                 set { SetProperty(ref _fieldValue, value); }
-            }
-
-
+            } 
         }
+        
+
+
         private void Excute(string type)
         {
             //新增或保存
@@ -268,8 +293,13 @@ namespace Todo.ViewModels.Duty
         private ShapeBase _selectedItem = new ShapeBase();
         public ShapeBase SelectedItem
         {
-            get { return _selectedItem; }
-            set { SetProperty(ref _selectedItem, value); }
+            get { 
+                this.IsShowFieldName = string.IsNullOrEmpty(_selectedItem.FieldName) ? Visibility.Hidden : Visibility.Visible;
+                IsDateTime = _selectedItem.BaseType==DefaultConst.BaseType_DateTime ? Visibility.Visible : Visibility.Hidden;
+                return _selectedItem; }
+            set {
+               
+                SetProperty(ref _selectedItem, value); }
         }
 
         private ObservableCollection<ShapeBase> _items = new ObservableCollection<ShapeBase>();
@@ -286,6 +316,14 @@ namespace Todo.ViewModels.Duty
             get { return fieldItems; }
             set { SetProperty(ref fieldItems, value); }
         }
+
+        private ObservableCollection<FieldModel> dtFormats = new ObservableCollection<FieldModel>();
+        public ObservableCollection<FieldModel> DtFormats
+        {
+            get { return dtFormats; }
+            set { SetProperty(ref dtFormats, value); }
+        }
+
         private string _selectedField;
         public string SelectedField
         {
@@ -308,6 +346,24 @@ namespace Todo.ViewModels.Duty
             set => SetProperty(ref _isShowControl, value);
         }
 
+        //是否显示绑定字段
+        private Visibility _isShowFieldName;
+
+        public Visibility IsShowFieldName
+        {
+            get => _isShowFieldName;
+            set { _isShowFieldName = value; RaisePropertyChanged(); }
+         
+        }
+        //是否显示日期控件
+        private Visibility _isDateTime;
+
+        public Visibility IsDateTime
+        {
+            get => _isDateTime;
+            set { _isDateTime = value; RaisePropertyChanged(); }
+
+        }
 
         private Visibility _visForm;
 
@@ -357,6 +413,8 @@ namespace Todo.ViewModels.Duty
         public DelegateCommand<string> ExecuteCommand { get; set; }
 
         public DelegateCommand<object> SelectionChangeCommand { get; set; }
+
+        public DelegateCommand<object> DtFormatsChangeCommand { get; set; }
 
         public DelegateCommand<object> RadioButtonCommand { get; set; }
 
